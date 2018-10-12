@@ -23,7 +23,7 @@ class App extends Component {
       },
       {
         eventName: "Christmas Eve",
-        eventDate: "2018",
+        eventDate: "December 24, 2018",
         imageUrl:
           "https://upload.wikimedia.org/wikipedia/commons/f/fa/Happy_new_year_06463.jpg",
         eventId: 1
@@ -213,9 +213,11 @@ class App extends Component {
   };
 
   handleReadCookie = async () => {
-    const api_call = await fetch(
-      "https://www.googleapis.com/drive/v3/files/1GnevEsl9XG-azjqZqi3IdVKUNYFeOSX_IOWN9jbZsRI/export?mimeType=text%2Fplain&key=AIzaSyAvsbbUo5LX9TxJXxe04Y5hPuCZhxedReo"
-    );
+    const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
+    const API_ROUTE_FOR_CALL =
+      "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk/values/B2%3AC2?key=";
+
+    const api_call = await fetch(`${API_ROUTE_FOR_CALL}${API_KEY}`);
     console.log(api_call);
     const apiCallContents = await api_call.json();
     console.log(apiCallContents);
@@ -230,6 +232,22 @@ class App extends Component {
 
     // this.setState({ favouriteEvent });
     // this.setState({ events });
+  };
+
+  handleWriteCookie = () => {
+    const events = [...this.state.events];
+    const eventsString = JSON.stringify(events);
+
+    const favouriteEvent = this.state.favouriteEvent;
+    const combinedString = [favouriteEvent, eventsString];
+    const cookieContent = JSON.stringify(combinedString);
+
+    console.log(this.state.time);
+    console.log(favouriteEvent);
+    console.log(eventsString);
+
+    this.handleDelete("cookie");
+    document.cookie = cookieContent;
   };
 
   handleSort = type => {
@@ -276,21 +294,6 @@ class App extends Component {
     }
   };
 
-  handleWriteCookie = () => {
-    const events = [...this.state.events];
-    const eventsString = JSON.stringify(events);
-
-    const favouriteEvent = [this.state.favouriteEvent];
-    const combinedString = [favouriteEvent, eventsString];
-    const cookieContent = JSON.stringify(combinedString);
-
-    console.log(favouriteEvent);
-    console.log(events);
-
-    this.handleDelete("cookie");
-    document.cookie = cookieContent;
-  };
-
   render() {
     document.body.style.backgroundColor = "#fff6f3";
     return (
@@ -308,11 +311,8 @@ class App extends Component {
         <main>
           <div className="jumbotron jumbotron-fluid">
             <div className="container">
-              <h1 className="display-1">Time…</h1>
+              <h1 className="display-1">Planned events</h1>
               <p className="lead">How much time to an expexted event.</p>
-              <p className="lead">
-                Save your events as a cookie and load them at your leisure.
-              </p>
             </div>
           </div>
           <TimerList
