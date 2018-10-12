@@ -4,6 +4,7 @@ import NavBar from "./components/navbar";
 import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import Auth from "./Auth/auth";
 
 class App extends Component {
   state = {
@@ -27,6 +28,9 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
+
+    const auth = new Auth();
+    auth.login();
   }
 
   update = () => {
@@ -232,21 +236,37 @@ class App extends Component {
     this.setState({ events });
   };
 
-  handleWriteCookie = () => {
-    let events = [...this.state.events];
-    events.shift();
-    const eventsString = JSON.stringify(events);
+  handleWriteCookie = async () => {
+    const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
+    const API_ROUTE_FOR_CALL =
+      "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk:batchUpdate?key=";
+    const command =
+      '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
+    fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${command}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        firstParam: "yourValue",
+        secondParam: "yourOtherValue"
+      })
+    });
+    // let events = [...this.state.events];
+    // events.shift();
+    // const eventsString = JSON.stringify(events);
 
-    const favouriteEvent = this.state.favouriteEvent;
-    const combinedString = [favouriteEvent, eventsString];
-    const cookieContent = JSON.stringify(combinedString);
+    // const favouriteEvent = this.state.favouriteEvent;
+    // const combinedString = [favouriteEvent, eventsString];
+    // const cookieContent = JSON.stringify(combinedString);
 
-    console.log(this.state.time);
-    console.log(favouriteEvent);
-    console.log(eventsString);
+    // console.log(this.state.time);
+    // console.log(favouriteEvent);
+    // console.log(eventsString);
 
-    this.handleDelete("cookie");
-    document.cookie = cookieContent;
+    // this.handleDelete("cookie");
+    // document.cookie = cookieContent;
   };
 
   handleSort = type => {
