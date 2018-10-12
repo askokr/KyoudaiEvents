@@ -23,17 +23,10 @@ class App extends Component {
       },
       {
         eventName: "Christmas Eve",
-        eventDate: "",
+        eventDate: "2018",
         imageUrl:
           "https://upload.wikimedia.org/wikipedia/commons/f/fa/Happy_new_year_06463.jpg",
         eventId: 1
-      },
-      {
-        eventName: "St John's Eve",
-        eventDate: "",
-        imageUrl:
-          "https://upload.wikimedia.org/wikipedia/commons/8/84/MidsummerNightBonfire.jpg",
-        eventId: 2
       }
     ]
   };
@@ -41,7 +34,6 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
-    this.updateYears();
   }
 
   update = () => {
@@ -84,34 +76,6 @@ class App extends Component {
     return sortedEvents;
   };
 
-  //Automatically calculate next year for events
-  updateYears = () => {
-    const christmasMonth = 11;
-    const christmasDate = 24;
-    const stJohnsMonth = 5;
-    const stJohnsDate = 23;
-    const currentMonth = this.state.time.getMonth();
-    const currentDate = this.state.time.getDate();
-    let christmasYear;
-    let stJohnsYear;
-    if (currentMonth <= christmasMonth && currentDate <= christmasDate) {
-      christmasYear = this.state.time.getFullYear();
-    } else {
-      christmasYear = this.state.time.getFullYear() + 1;
-    }
-    if (currentMonth <= stJohnsMonth && currentDate <= stJohnsDate) {
-      stJohnsYear = this.state.time.getFullYear();
-    } else {
-      stJohnsYear = this.state.time.getFullYear() + 1;
-    }
-    const events = [...this.state.events];
-    const newChristmasDate = "December 24, " + christmasYear;
-    const newStJohnsDate = "June 23, " + stJohnsYear;
-    events[1].eventDate = newChristmasDate;
-    events[2].eventDate = newStJohnsDate;
-    this.setState({ events });
-  };
-
   updateFromDrive = async e => {};
 
   rememberSortorder = () => {
@@ -129,44 +93,11 @@ class App extends Component {
 
   handleDelete = eventId => {
     const favouriteEvent = null;
-    let events;
-    switch (eventId) {
-      case "all":
-        const areYouAddingAnEvent = false;
-        const oldImageUrl = undefined;
-        const whatEventAreYouEditing = null;
-        events = [
-          {
-            eventName: "",
-            eventDate: "",
-            imageUrl: "",
-            eventId: 0
-          }
-        ];
-        this.setState({ areYouAddingAnEvent });
-        this.setState({ favouriteEvent });
-        this.setState({ oldImageUrl });
-        this.setState({ whatEventAreYouEditing });
-        this.setState({ events });
-        break;
-      case "cookie":
-        document.cookie.split(";").forEach(function(c) {
-          document.cookie = c
-            .replace(/^ +/, "")
-            .replace(
-              /=.*/,
-              "=;expires=" + new Date().toUTCString() + ";path=/"
-            );
-        });
-        document.cookie = "";
-        break;
-      default:
-        events = this.state.events.filter(c => c.eventId !== eventId);
-        if (eventId === this.state.favouriteEvent) {
-          this.setState({ favouriteEvent });
-        }
-        this.setState({ events });
+    const events = this.state.events.filter(c => c.eventId !== eventId);
+    if (eventId === this.state.favouriteEvent) {
+      this.setState({ favouriteEvent });
     }
+    this.setState({ events });
   };
 
   handleDisplay = type => {
