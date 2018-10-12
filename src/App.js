@@ -4,7 +4,6 @@ import NavBar from "./components/navbar";
 import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Auth from "./Auth/auth";
 
 class App extends Component {
   state = {
@@ -28,9 +27,6 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
-
-    const auth = new Auth();
-    auth.login();
   }
 
   update = () => {
