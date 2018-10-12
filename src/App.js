@@ -20,13 +20,6 @@ class App extends Component {
         eventDate: "",
         imageUrl: "",
         eventId: 0
-      },
-      {
-        eventName: "Christmas Eve",
-        eventDate: "December 24, 2018",
-        imageUrl:
-          "https://upload.wikimedia.org/wikipedia/commons/f/fa/Happy_new_year_06463.jpg",
-        eventId: 1
       }
     ]
   };
@@ -218,24 +211,30 @@ class App extends Component {
       "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk/values/B2%3AC2?key=";
 
     const api_call = await fetch(`${API_ROUTE_FOR_CALL}${API_KEY}`);
-    console.log(api_call);
     const apiCallContents = await api_call.json();
-    console.log(apiCallContents);
-    // const cookieContent = document.cookie;
-    // const combinedString = JSON.parse(cookieContent);
-    // const favouriteEvent = combinedString[0][0];
-    // const eventsString = combinedString[1];
-    // const events = JSON.parse(eventsString);
+    // console.log(apiCallContents);
+    const values = apiCallContents.values[0];
+    // console.log(values);
+    // const favouriteEvent = parseInt(values[0]);
+    // console.log(favouriteEvent);
+    const eventsString = values[1];
+    // console.log(eventsString);
+    let events = JSON.parse(eventsString);
+    //console.log(events);
+    const dafaultEvent = this.state.events[0];
+    events.unshift(dafaultEvent);
+    // console.log(events);
 
-    // // console.log(favouriteEvent);
-    // // console.log(events);
+    // console.log(favouriteEvent);
+    // console.log(this.state.favouriteEvent);
 
-    // this.setState({ favouriteEvent });
-    // this.setState({ events });
+    // this.setState({ favouriteEvent }); //katki miskipärast
+    this.setState({ events });
   };
 
   handleWriteCookie = () => {
-    const events = [...this.state.events];
+    let events = [...this.state.events];
+    events.shift();
     const eventsString = JSON.stringify(events);
 
     const favouriteEvent = this.state.favouriteEvent;
