@@ -9,6 +9,8 @@ import DataComponent from "./components/googleSheets";
 
 import Login from "./components/googleLogin";
 
+import { GoogleLogin } from "react-google-login";
+
 class App extends Component {
   state = {
     areYouAddingAnEvent: false,

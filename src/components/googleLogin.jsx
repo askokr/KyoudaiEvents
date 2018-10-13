@@ -19,7 +19,7 @@ class Login extends React.Component {
     return (
       <div>
         <GoogleLogin
-          socialId="109871163770622410435"
+          socialId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
           className="google-login"
           scope="profile"
           fetchBasicProfile={false}
