@@ -318,6 +318,10 @@ class App extends Component {
   render() {
     document.body.style.backgroundColor = "#fff6f3";
 
+    const responseGoogle = response => {
+      console.log(response);
+    };
+
     return (
       <React.Fragment>
         <NavBar
@@ -338,7 +342,13 @@ class App extends Component {
             </div>
           </div>
           {/* <DataComponent /> */}
-          <Login />
+          {/* <Login /> */}
+          <GoogleLogin
+            clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+          />
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
             events={this.displayedEvents(this.state.events)}
