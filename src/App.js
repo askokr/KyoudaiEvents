@@ -342,7 +342,7 @@ class App extends Component {
             </div>
           </div>
           {/* <DataComponent /> */}
-          {/* <Login /> */}
+          <Login />
           <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
             buttonText="Login"
