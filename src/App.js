@@ -5,6 +5,10 @@ import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
+import DataComponent from "./components/googleSheets";
+
+import Login from "./components/googleLogin";
+
 class App extends Component {
   state = {
     areYouAddingAnEvent: false,
@@ -311,6 +315,7 @@ class App extends Component {
 
   render() {
     document.body.style.backgroundColor = "#fff6f3";
+
     return (
       <React.Fragment>
         <NavBar
@@ -330,6 +335,8 @@ class App extends Component {
               <p className="lead">How much time to an expexted event.</p>
             </div>
           </div>
+          {/* <DataComponent /> */}
+          <Login />
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
             events={this.displayedEvents(this.state.events)}

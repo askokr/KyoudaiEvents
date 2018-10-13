@@ -29,7 +29,7 @@ class ElementsToDisplayButtonGroup extends Component {
             }
             onClick={() => onDisplay("all")}
           >
-            <Octicon name="code" mega />
+            <Octicon name="code" />
           </button>
         </Tooltip>
         <Tooltip
