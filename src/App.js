@@ -43,7 +43,7 @@ class App extends Component {
     });
     this.rememberSortorder();
     document.cookie !== ""
-      ? console.log(JSON.parse(document.cookie))
+      ? console.log(document.cooki)
       : console.log("no cookie");
   };
   //Sort images to be displayed
