@@ -250,7 +250,9 @@ class App extends Component {
     fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`, {
       method: "POST",
       headers: {
-        accessToken:
+        "Access-Control-Allow-Origin":
+          "https://fervent-lumiere-e97c88.netlify.com/",
+        "Access Token":
           "access_token=ya29.Glw2BkVbrYCHSe5riu3HkRKpZ6xe4BGFJp1EUaiYGY8dr7Ekhg8o4DHYboS6WVmZmHTKNvfgnMHCeITfrB1szw-ezbXsghNW3CT88np0BmuMqxq2u2QBLiN7PgNrFQ",
         Accept: "application/json",
         "Content-Type": "application/json"
