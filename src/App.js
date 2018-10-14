@@ -42,6 +42,9 @@ class App extends Component {
       time: new Date()
     });
     this.rememberSortorder();
+    document.cookie !== ""
+      ? console.log(JSON.parse(document.cookie))
+      : console.log("no cookie");
   };
   //Sort images to be displayed
   displayedEvents = () => {
@@ -320,12 +323,6 @@ class App extends Component {
     }
   };
 
-  handleToken = token => {
-    const access_token = token;
-    console.log(access_token);
-    // this.setState({ access_token });
-  };
-
   render() {
     document.body.style.backgroundColor = "#fff6f3";
 
@@ -359,7 +356,6 @@ class App extends Component {
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
-            onToken={this.handleToken}
           />
           {/* <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} /> */}
           <TimerList
