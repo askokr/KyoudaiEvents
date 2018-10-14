@@ -341,7 +341,7 @@ class App extends Component {
               <p className="lead">How much time to an expexted event.</p>
             </div>
           </div>
-          <DataComponent />
+          {/* <DataComponent /> */}
           {/* <Login /> */}
           <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
