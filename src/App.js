@@ -15,6 +15,7 @@ import { GoogleLogout } from "react-google-login";
 class App extends Component {
   state = {
     areYouAddingAnEvent: false,
+    access_token: null,
     favouriteEvent: null,
     oldImageUrl: undefined,
     sortDirection: "byKey",
@@ -252,6 +253,7 @@ class App extends Component {
       headers: {
         "Access-Control-Allow-Origin":
           "https://fervent-lumiere-e97c88.netlify.com/",
+        Authorization: `Bearer ${this.state.access_token}`,
         "Access Token":
           "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw",
         Accept: "application/json",
@@ -318,6 +320,12 @@ class App extends Component {
     }
   };
 
+  handleToken = token => {
+    const access_token = token;
+    console.log(access_token);
+    // this.setState({ access_token });
+  };
+
   render() {
     document.body.style.backgroundColor = "#fff6f3";
 
@@ -351,6 +359,7 @@ class App extends Component {
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
+            onToken={this.handleToken}
           />
           {/* <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} /> */}
           <TimerList
