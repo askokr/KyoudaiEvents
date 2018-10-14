@@ -243,9 +243,11 @@ class App extends Component {
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
     const API_ROUTE_FOR_CALL =
       "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk:batchUpdate?key=";
-    const command =
+    const COMMAND =
       '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
-    fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${command}`, {
+    const ACCESS_TOKEN =
+      "access_token=ya29.Glw2BkVbrYCHSe5riu3HkRKpZ6xe4BGFJp1EUaiYGY8dr7Ekhg8o4DHYboS6WVmZmHTKNvfgnMHCeITfrB1szw-ezbXsghNW3CT88np0BmuMqxq2u2QBLiN7PgNrFQ";
+    fetch(`${API_ROUTE_FOR_CALL}${ACCESS_TOKEN}${API_KEY}${COMMAND}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
