@@ -12,7 +12,7 @@ class DataComponent extends Component {
     return (
       <ReactGoogleSheets
         clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
-        apiKey="AIzaSyDJEye_MuHDLq_yogKA1EtnfJdBnTvO9pg "
+        apiKey="AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU"
         spreadsheetId="1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk"
         afterLoading={() => this.setState({ sheetLoaded: true })}
       >
@@ -21,7 +21,9 @@ class DataComponent extends Component {
             {/* Access Data */}
             {console.log(
               "Your sheet data : ",
-              this.props.getSheetsData("Events storage")
+              this.props.getSheetsData(
+                "1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk"
+              )
             )}
             {/* Update Data */}
             <button
