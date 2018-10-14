@@ -10,6 +10,7 @@ import DataComponent from "./components/googleSheets";
 import Login from "./components/googleLogin";
 
 import { GoogleLogin } from "react-google-login";
+import { GoogleLogout } from "react-google-login";
 
 class App extends Component {
   state = {
@@ -349,6 +350,7 @@ class App extends Component {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
           />
+          {/* <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} /> */}
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
             events={this.displayedEvents(this.state.events)}
