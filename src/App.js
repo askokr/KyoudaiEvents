@@ -246,21 +246,17 @@ class App extends Component {
     const COMMAND =
       '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
     const ACCESS_TOKEN =
-      "access_token=ya29.Glw2BkVbrYCHSe5riu3HkRKpZ6xe4BGFJp1EUaiYGY8dr7Ekhg8o4DHYboS6WVmZmHTKNvfgnMHCeITfrB1szw-ezbXsghNW3CT88np0BmuMqxq2u2QBLiN7PgNrFQ";
+      "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw";
     fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":
           "https://fervent-lumiere-e97c88.netlify.com/",
         "Access Token":
-          "access_token=ya29.Glw2BkVbrYCHSe5riu3HkRKpZ6xe4BGFJp1EUaiYGY8dr7Ekhg8o4DHYboS6WVmZmHTKNvfgnMHCeITfrB1szw-ezbXsghNW3CT88np0BmuMqxq2u2QBLiN7PgNrFQ",
+          "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw",
         Accept: "application/json",
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        firstParam: "yourValue",
-        secondParam: "yourOtherValue"
-      })
+      }
     });
     // let events = [...this.state.events];
     // events.shift();
