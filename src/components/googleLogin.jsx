@@ -22,7 +22,7 @@ class Login extends React.Component {
         <GoogleLogin
           socialId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
           className="google-login"
-          scope="spreadsheets"
+          scope="https://www.googleapis.com/auth/spreadsheets"
           fetchBasicProfile={false}
           responseHandler={this.responseGoogle}
           buttonText="Login With Google"
