@@ -349,14 +349,14 @@ class App extends Component {
               <p className="lead">How much time to an expexted event.</p>
             </div>
           </div>
-          {/* <DataComponent /> */}
+          <DataComponent />
           {/* <Login /> */}
-          <GoogleLogin
+          {/* <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
-          />
+          /> */}
           {/* <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} /> */}
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
