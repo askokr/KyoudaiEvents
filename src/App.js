@@ -5,8 +5,6 @@ import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-import DataComponent from "./components/googleSheets";
-
 import Login from "./components/googleLogin";
 
 import { GoogleLogin } from "react-google-login";
@@ -349,7 +347,6 @@ class App extends Component {
               <p className="lead">{message[1]}</p>
             </div>
           </div>
-          {/* <DataComponent /> */}
           {/* <Login /> */}
           <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
