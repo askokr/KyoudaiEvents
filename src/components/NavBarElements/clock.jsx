@@ -24,7 +24,7 @@ const Clock = ({ time }) => {
   return (
     <h2 className="text-white">
       {d + ". "}
-      {months[M] + ", "}
+      {months[M] + " "}
       {y + " "}
       {h % 24}:{m < 10 ? "0" + m : m}:{s < 10 ? "0" + s : s}
     </h2>
