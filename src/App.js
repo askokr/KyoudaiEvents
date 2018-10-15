@@ -42,9 +42,9 @@ class App extends Component {
       time: new Date()
     });
     this.rememberSortorder();
-    document.cookie !== ""
-      ? console.log(document.cooki)
-      : console.log("no cookie");
+    // document.cookie !== ""
+    //   ? console.log(document.cooki)
+    //   : console.log("no cookie");
   };
   //Sort images to be displayed
   displayedEvents = () => {
