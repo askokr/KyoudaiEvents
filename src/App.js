@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import Login from "./components/googleLogin";
 
+import APICaller from "./components/caller";
+
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from "react-google-login";
 
@@ -33,6 +35,7 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
+    this.handleSheetRead();
   }
 
   update = () => {
@@ -77,8 +80,6 @@ class App extends Component {
     sortedEvents.unshift(theZeroeth);
     return sortedEvents;
   };
-
-  updateFromDrive = async e => {};
 
   rememberSortorder = () => {
     switch (this.state.sortDirection) {
@@ -214,7 +215,7 @@ class App extends Component {
     this.setState(events);
   };
 
-  handleReadCookie = async () => {
+  handleSheetRead = async () => {
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
     const API_ROUTE_FOR_CALL =
       "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk/values/B2%3AC2?key=";
@@ -333,7 +334,7 @@ class App extends Component {
         <NavBar
           onDelete={this.handleDelete}
           onDisplay={this.handleDisplay}
-          onReadCookie={this.handleReadCookie}
+          onReadCookie={this.handleSheetRead}
           onSort={this.handleSort}
           onWriteCookie={this.handleWriteCookie}
           sortDirection={this.state.sortDirection}
@@ -348,6 +349,7 @@ class App extends Component {
             </div>
           </div>
           {/* <Login /> */}
+          <APICaller />
           <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
             buttonText="Login"
