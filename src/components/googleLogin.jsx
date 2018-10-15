@@ -10,10 +10,10 @@ class Login extends React.Component {
     var id_token = googleUser.getAuthResponse().id_token;
     var googleId = googleUser.getId();
 
-    // console.log({ googleId });
+    console.log({ googleId });
     console.log({ accessToken: id_token });
     //anything else you want to do(save to localStorage)...
-    document.cookie = JSON.stringify(id_token);
+    // document.cookie = JSON.stringify(id_token);
   }
 
   render() {
