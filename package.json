@@ -20,6 +20,7 @@
     "react-google-login-component": "^0.9.3",
     "react-google-sheets": "^0.4.0",
     "react-octicon": "^3.0.1",
+    "react-responsive": "^5.0.0",
     "react-scripts": "^2.0.3"
   },
   "scripts": {

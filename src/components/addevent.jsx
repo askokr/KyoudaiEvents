@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Editor from "./editor";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
-const message = ["Lisa sündmus", "Lisa sündmus"];
+const message = ["Lisa uus sündmus", "Lisa sündmus"];
 
 class AddEvent extends Component {
   render() {
