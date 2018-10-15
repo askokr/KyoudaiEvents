@@ -23,6 +23,11 @@ class Form extends Component {
       onImageUrl,
       onRandomImage
     } = this.props;
+    const message = [
+      "Sündmuse nimi",
+      "Võta Unsplashist juhuslik pilt",
+      "Link pildi juurde"
+    ];
     return (
       <form className="container-fluid" onSubmit={onFormSubmit}>
         <div className="form-row">
@@ -39,7 +44,7 @@ class Form extends Component {
                 value={eventName}
                 maxLength="42"
                 onChange={onEventName}
-                placeholder={"Enter event name"}
+                placeholder={message[0]}
               />
             </div>
           </div>
@@ -65,7 +70,7 @@ class Form extends Component {
             <input
               type="url"
               className="form-control"
-              placeholder="https://cutepicture.info"
+              placeholder={message[2]}
               value={imageUrl}
               name="imageUrl"
               onChange={onImageUrl}
@@ -74,7 +79,7 @@ class Form extends Component {
               <Tooltip
                 TransitionComponent={Zoom}
                 placement="bottom-end"
-                title="Get random image from Unsplash"
+                title={message[1]}
               >
                 <button
                   type="button"

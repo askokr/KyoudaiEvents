@@ -40,28 +40,52 @@ function timerFunction(props) {
     secondsToEvent = Math.floor(minutesToEventLeftoverInMs / msInSecond);
     moreThanAnHourLeft = timeToEvent > msInHour;
   }
+  const message = [
+    "päev",
+    "a",
+    "tund",
+    "i",
+    "minut",
+    "it",
+    "",
+    "ja",
+    "sekund",
+    "it",
+    "Sündmus on möödunud."
+  ];
 
   if (!eventHasPassed) {
     return (
       <React.Fragment>
         {daysToEvent > 0
-          ? daysToEvent + " day" + (daysToEvent !== 1 ? "s" : "") + ", "
+          ? daysToEvent +
+            " " +
+            message[0] +
+            (daysToEvent !== 1 ? message[1] : "") +
+            ", "
           : ""}
         {hoursToEvent > 0
-          ? hoursToEvent + " hour" + (hoursToEvent !== 1 ? "s" : "") + ", "
+          ? hoursToEvent +
+            " " +
+            message[2] +
+            (hoursToEvent !== 1 ? message[3] : "") +
+            ", "
           : ""}
         {minutesToEvent > 0
           ? minutesToEvent +
-            " minute" +
-            (minutesToEvent !== 1 ? "s" : "") +
-            (moreThanAnHourLeft ? "," : "") +
-            " and "
+            " " +
+            message[4] +
+            (minutesToEvent !== 1 ? message[5] : "") +
+            (moreThanAnHourLeft ? message[6] : "") +
+            "  " +
+            message[7]
           : ""}
-        {secondsToEvent} {" second" + (secondsToEvent !== 1 ? "s" : "") + "."}
+        {secondsToEvent}{" "}
+        {" " + message[8] + (secondsToEvent !== 1 ? message[9] : "") + "."}
       </React.Fragment>
     );
   } else {
-    return "Event has passed.";
+    return message[10];
   }
 }
 

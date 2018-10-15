@@ -12,13 +12,15 @@ class Buttons extends Component {
       onEdit,
       onFavourite
     } = this.props;
+    const message = [
+      "Kustuta sündmus",
+      "Muuda sündmust",
+      "Praegune lemmik",
+      "Määra lemmikusks"
+    ];
     return (
       <div className="text-container-button d-flex flex-column">
-        <Tooltip
-          TransitionComponent={Zoom}
-          placement="left"
-          title="Delete this event"
-        >
+        <Tooltip TransitionComponent={Zoom} placement="left" title={message[0]}>
           <button
             className="btn btn-danger btn-lg"
             onClick={() => onDelete(eventId)}
@@ -26,11 +28,7 @@ class Buttons extends Component {
             <Octicon name="trashcan" mega />
           </button>
         </Tooltip>
-        <Tooltip
-          TransitionComponent={Zoom}
-          placement="left"
-          title="Edit this event"
-        >
+        <Tooltip TransitionComponent={Zoom} placement="left" title={message[1]}>
           <button
             className="btn btn-success btn-lg"
             onClick={() => onEdit(eventId)}
@@ -38,13 +36,13 @@ class Buttons extends Component {
             <Octicon name="tools" mega />
           </button>
         </Tooltip>
-        <Tooltip
+        {/* <Tooltip
           TransitionComponent={Zoom}
           placement="left"
           title={
             eventId === favouriteEvent
-              ? "Current favourite"
-              : "Set as favourite"
+              ? {message[2]}
+              : {message[3]}
           }
         >
           <button
@@ -56,7 +54,7 @@ class Buttons extends Component {
           >
             <Octicon name="heart" mega />
           </button>
-        </Tooltip>
+        </Tooltip> */}
       </div>
     );
   }

@@ -5,13 +5,14 @@ import datetimeStringFunction from "../functions/datetimeStringFunction";
 class TextBox extends Component {
   render() {
     const { eventDate, eventName, timerFunctionInput } = this.props;
+    const message = ["Nimeta sündmus", "Määramata ajal"];
     return (
       <React.Fragment>
-        <h2>{eventName === "" ? "Unnamed event" : eventName}</h2>
+        <h2>{eventName === "" ? message[0] : eventName}</h2>
         <h4>
           {Object.prototype.toString.call(eventDate) === "[object Date]" ||
           eventDate === ""
-            ? "On an undefined date"
+            ? message[1]
             : datetimeStringFunction(eventDate)}
         </h4>
         <h3>{timerFunction(timerFunctionInput)}</h3>

@@ -9,33 +9,31 @@ class CloseButton extends Component {
 
   closeButton = () => {
     const { whatEventAreYouEditing, onToggle } = this.props;
+    const message = [
+      "Sule",
+      "Sule",
+      "Tühista sündmuse lisamine",
+      "Tühista sündmuse muutmine"
+    ];
     if (whatEventAreYouEditing === null) {
       return (
-        <Tooltip
-          TransitionComponent={Zoom}
-          placement="top"
-          title="Cancel adding new event, clear all field"
-        >
+        <Tooltip TransitionComponent={Zoom} placement="top" title={message[2]}>
           <button
             onClick={() => onToggle("editor")}
             className="btn btn-danger m-4 btn-lg"
           >
-            Close
+            {message[0]}
           </button>
         </Tooltip>
       );
     } else {
       return (
-        <Tooltip
-          TransitionComponent={Zoom}
-          placement="top"
-          title="Cancel editing this event, keep all old values"
-        >
+        <Tooltip TransitionComponent={Zoom} placement="top" title={message[3]}>
           <button
             onClick={() => onToggle("event")}
             className="btn btn-danger m-4 btn-lg"
           >
-            Close editor
+            {message[1]}
           </button>
         </Tooltip>
       );

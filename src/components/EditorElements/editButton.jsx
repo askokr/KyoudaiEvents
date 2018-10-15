@@ -8,15 +8,16 @@ class EditButton extends Component {
   }
   editButton = () => {
     const { onFormSubmit, whatEventAreYouEditing } = this.props;
+    const message = ['LIsa uus sündmus', 'Kinnita muutused', 'Lisa sündmus', 'Kinnita muutused'],
     if (whatEventAreYouEditing === null) {
       return (
         <Tooltip
           TransitionComponent={Zoom}
           placement="top"
-          title="Add event to list"
+          title={message[2]}
         >
           <button onClick={onFormSubmit} className="btn btn-warning m-4 btn-lg">
-            Add new event
+            {message[0]}
           </button>
         </Tooltip>
       );
@@ -25,10 +26,10 @@ class EditButton extends Component {
         <Tooltip
           TransitionComponent={Zoom}
           placement="top"
-          title="Apply the changes you have made to the event"
+          title={message[3]}
         >
           <button onClick={onFormSubmit} className="btn btn-warning m-4 btn-lg">
-            Apply edits to event
+          {message[1]}
           </button>
         </Tooltip>
       );

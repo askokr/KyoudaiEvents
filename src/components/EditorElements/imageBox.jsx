@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+const message = ["Pildi eelvaade", "Praegune pilt", "Uus pilt"];
 class ImageBox extends Component {
   render() {
     return this.viewChooser();
@@ -21,7 +21,7 @@ class ImageBox extends Component {
     };
     return (
       <div className="p-2 bd-highlight">
-        <span className="text-above-image">Image preview</span>
+        <span className="text-above-image">{message[0]}</span>
         <div style={newImage} className="background-image shadowy" />
       </div>
     );
@@ -38,15 +38,16 @@ class ImageBox extends Component {
       width: "400px",
       height: "95px"
     };
+
     return (
       <React.Fragment>
         <div className="p-2 bd-highlight">
-          <span className="text-above-image">Current image</span>
+          <span className="text-above-image">{message[1]}</span>
           <div style={oldImage} className="background-image shadowy" />
         </div>
         {this.props.oldImageUrl !== this.props.newImageUrl ? (
           <div className="p-2 bd-highlight">
-            <span className="text-above-image">New image</span>
+            <span className="text-above-image">{mesage[2]}</span>
             <div style={newImage} className="background-image shadowy" />
           </div>
         ) : (

@@ -6,9 +6,14 @@ import Octicon from "react-octicon";
 class SortOrderButtonGroup extends Component {
   render() {
     const { onSort, sortDirection } = this.props;
+    const message = [
+      "Sorteeri laskuvalt",
+      "Sorteeri lisamise järjekorras",
+      "Sorteeri tõusvalt"
+    ];
     return (
       <div className="btn-group btn-group-toggle m-2" data-toggle="buttons">
-        <Tooltip TransitionComponent={Zoom} title="Sort in ascending order">
+        <Tooltip TransitionComponent={Zoom} title={message[0]}>
           <button
             className={
               "btn btn-lg btn-" +
@@ -20,7 +25,7 @@ class SortOrderButtonGroup extends Component {
             <Octicon name="chevron-up" />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title="Sort by order of addition">
+        <Tooltip TransitionComponent={Zoom} title={message[1]}>
           <button
             className={
               "btn btn-lg btn-" +
@@ -32,7 +37,7 @@ class SortOrderButtonGroup extends Component {
             <Octicon name="pencil" />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title="Sort in descending order">
+        <Tooltip TransitionComponent={Zoom} title={message[2]}>
           <button
             className={
               "btn btn-lg btn-" +

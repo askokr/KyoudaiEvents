@@ -329,7 +329,7 @@ class App extends Component {
     const responseGoogle = response => {
       console.log(response);
     };
-
+    const message = ["Sündmused", "Eelseisvad ja möödunud sündmused"];
     return (
       <React.Fragment>
         <NavBar
@@ -345,8 +345,8 @@ class App extends Component {
         <main>
           <div className="jumbotron jumbotron-fluid">
             <div className="container">
-              <h1 className="display-1">Planned events</h1>
-              <p className="lead">How much time to an expexted event.</p>
+              <h1 className="display-1">{message[0]}</h1>
+              <p className="lead">{message[1]}</p>
             </div>
           </div>
           {/* <DataComponent /> */}
@@ -357,7 +357,7 @@ class App extends Component {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
           /> */}
-          {/* <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} /> */}
+          <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} />
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
             events={this.displayedEvents(this.state.events)}

@@ -8,18 +8,18 @@ const Clock = ({ time }) => {
   const m = time.getMinutes();
   const s = time.getSeconds();
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+    "jaanuar",
+    "veebruar",
+    "märts",
+    "aprill",
+    "mai",
+    "juuni",
+    "juuli",
+    "august",
+    "september",
+    "oktoober",
+    "november",
+    "detember"
   ];
   return (
     <h2 className="text-white">

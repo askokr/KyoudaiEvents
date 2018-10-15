@@ -6,9 +6,14 @@ import Octicon from "react-octicon";
 class ElementsToDisplayButtonGroup extends Component {
   render() {
     const { onDisplay, whatEvetsToDisplay } = this.props;
+    const message = [
+      "Kuva vaid möödunud sündmused",
+      "Kuva kõik spndmused",
+      "Kuva eelseisvad sündmused"
+    ];
     return (
       <div className="btn-group btn-group-toggle m-2" data-toggle="buttons">
-        <Tooltip TransitionComponent={Zoom} title="Display passed events only">
+        <Tooltip TransitionComponent={Zoom} title={message[0]}>
           <button
             className={
               "btn btn-lg btn-" +
@@ -20,7 +25,7 @@ class ElementsToDisplayButtonGroup extends Component {
             <Octicon name="chevron-left" />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title="Display all events">
+        <Tooltip TransitionComponent={Zoom} title={message[1]}>
           <button
             className={
               "btn btn-lg btn-" +
@@ -32,10 +37,7 @@ class ElementsToDisplayButtonGroup extends Component {
             <Octicon name="code" />
           </button>
         </Tooltip>
-        <Tooltip
-          TransitionComponent={Zoom}
-          title="Display upcoming events only"
-        >
+        <Tooltip TransitionComponent={Zoom} title={message[2]}>
           <button
             className={
               "btn btn-lg btn-" +
