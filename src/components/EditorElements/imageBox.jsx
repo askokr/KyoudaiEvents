@@ -47,7 +47,7 @@ class ImageBox extends Component {
         </div>
         {this.props.oldImageUrl !== this.props.newImageUrl ? (
           <div className="p-2 bd-highlight">
-            <span className="text-above-image">{mesage[2]}</span>
+            <span className="text-above-image">{message[2]}</span>
             <div style={newImage} className="background-image shadowy" />
           </div>
         ) : (

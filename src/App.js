@@ -350,14 +350,14 @@ class App extends Component {
             </div>
           </div>
           {/* <DataComponent /> */}
-          <Login />
-          {/* <GoogleLogin
+          {/* <Login /> */}
+          <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
-          /> */}
-          <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} />
+          />
+          {/* <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} /> */}
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
             events={this.displayedEvents(this.state.events)}

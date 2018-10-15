@@ -29,14 +29,18 @@ function datetimeStringFunction(eventDate) {
     "Reede",
     "Laupäev"
   ];
+  const message = ["kell"];
   const dateString =
     days[rawDate.getDay()] +
     ", " +
+    rawDate.getDate() +
+    ". " +
     months[rawDate.getMonth()] +
     " " +
-    rawDate.getDate() +
-    ", " +
     rawDate.getFullYear() +
+    " " +
+    "  " +
+    message[0] +
     " " +
     addZero(rawDate.getHours()) +
     ":" +

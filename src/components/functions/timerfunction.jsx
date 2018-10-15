@@ -79,7 +79,7 @@ function timerFunction(props) {
             (moreThanAnHourLeft ? message[6] : "") +
             "  " +
             message[7]
-          : ""}
+          : ""}{" "}
         {secondsToEvent}{" "}
         {" " + message[8] + (secondsToEvent !== 1 ? message[9] : "") + "."}
       </React.Fragment>

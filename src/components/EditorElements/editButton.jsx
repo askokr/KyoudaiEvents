@@ -8,14 +8,15 @@ class EditButton extends Component {
   }
   editButton = () => {
     const { onFormSubmit, whatEventAreYouEditing } = this.props;
-    const message = ['LIsa uus sündmus', 'Kinnita muutused', 'Lisa sündmus', 'Kinnita muutused'],
+    const message = [
+      "LIsa uus sündmus",
+      "Kinnita muutused",
+      "Lisa sündmus",
+      "Kinnita muutused"
+    ];
     if (whatEventAreYouEditing === null) {
       return (
-        <Tooltip
-          TransitionComponent={Zoom}
-          placement="top"
-          title={message[2]}
-        >
+        <Tooltip TransitionComponent={Zoom} placement="top" title={message[2]}>
           <button onClick={onFormSubmit} className="btn btn-warning m-4 btn-lg">
             {message[0]}
           </button>
@@ -23,13 +24,9 @@ class EditButton extends Component {
       );
     } else {
       return (
-        <Tooltip
-          TransitionComponent={Zoom}
-          placement="top"
-          title={message[3]}
-        >
+        <Tooltip TransitionComponent={Zoom} placement="top" title={message[3]}>
           <button onClick={onFormSubmit} className="btn btn-warning m-4 btn-lg">
-          {message[1]}
+            {message[1]}
           </button>
         </Tooltip>
       );
