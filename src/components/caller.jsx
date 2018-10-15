@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class APICaller extends Component {
-  makeApiCall() {
+  makeApiCall(event) {
     var params = {
       // The spreadsheet to request.
       spreadsheetId: "1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk",
@@ -10,7 +10,7 @@ class APICaller extends Component {
       ranges: ["shet01"]
     };
 
-    var request = gapi.client.sheets.spreadsheets.get(params);
+    var request = window.gapi.client.sheets.spreadsheets.get(params);
     request.then(
       function(response) {
         // TODO: Change code below to process the `response` object:
@@ -22,51 +22,49 @@ class APICaller extends Component {
     );
   }
 
-  initClient() {
+  initClient(event) {
     var API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
 
     var CLIENT_ID =
       "64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com";
 
-    // TODO: Authorize using one of the following scopes:
-    //   'https://www.googleapis.com/auth/drive'
-    //   'https://www.googleapis.com/auth/drive.file'
-    //   'https://www.googleapis.com/auth/drive.readonly'
-    //   'https://www.googleapis.com/auth/spreadsheets'
-    //   'https://www.googleapis.com/auth/spreadsheets.readonly'
-    var SCOPE = "";
+    var SCOPE = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
-    gapi.client
+    window.gapi.client
       .init({
         apiKey: API_KEY,
         clientId: CLIENT_ID,
-        scope: "https://www.googleapis.com/auth/spreadsheets.readonly",
+        scope: SCOPE,
         discoveryDocs: [
           "https://sheets.googleapis.com/$discovery/rest?version=v4"
         ]
       })
-      .then(function() {
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
-        updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      .then(() => {
+        window.gapi.auth2
+          .getAuthInstance()
+          .isSignedIn.listen(this.updateSignInStatus);
+        this.updateSignInStatus(
+          window.gapi.auth2.getAuthInstance().isSignedIn.get()
+        );
       });
   }
 
-  handleClientLoad() {
-    gapi.load("client:auth2", initClient);
+  handleClientLoad(event) {
+    window.gapi.load("client:auth2", this.initClient);
   }
 
-  updateSignInStatus(isSignedIn) {
-    if (isSignedIn) {
-      makeApiCall();
+  updateSignInStatus = event => {
+    if (this.isSignedIn) {
+      this.makeApiCall();
     }
-  }
+  };
 
   handleSignInClick(event) {
-    gapi.auth2.getAuthInstance().signIn();
+    window.gapi.auth2.getAuthInstance().signIn();
   }
 
   handleSignOutClick(event) {
-    gapi.auth2.getAuthInstance().signOut();
+    window.gapi.auth2.getAuthInstance().signOut();
   }
 
   render() {
