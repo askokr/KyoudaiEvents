@@ -7,8 +7,6 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import Login from "./components/googleLogin";
 
-import APICaller from "./components/caller";
-
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from "react-google-login";
 
@@ -35,7 +33,6 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
-    this.handleSheetRead();
   }
 
   update = () => {
@@ -279,20 +276,38 @@ class App extends Component {
   };
 
   handleSort = type => {
-    const events = [...this.state.events];
-    let sortDirection;
+    let usnortedEvents = [...this.state.events];
+    const theZeroeth = usnortedEvents.shift();
+    const favouriteEventId = this.state.favouriteEvent;
+    let events, favouriteEvent, sortedEvents, sortDirection;
+
+    if (favouriteEventId !== null) {
+      favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
+      events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
+    } else {
+      events = usnortedEvents;
+    }
     switch (type) {
       case "ascending":
-        events.sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate));
+        usnortedEvents.sort(
+          (a, b) => new Date(b.eventDate) - new Date(a.eventDate)
+        );
         break;
       case "descending":
-        events.sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
+        usnortedEvents.sort(
+          (a, b) => new Date(a.eventDate) - new Date(b.eventDate)
+        );
         break;
       default:
-        events.sort((a, b) => a.eventId - b.eventId);
+        usnortedEvents.sort((a, b) => a.eventId - b.eventId);
         break;
     }
-
+    sortedEvents = usnortedEvents;
+    if (favouriteEventId !== null) {
+      sortedEvents.unshift(favouriteEvent);
+    }
+    sortedEvents.unshift(theZeroeth);
+    events = sortedEvents;
     this.setState({ events });
     sortDirection = type;
     this.setState({ sortDirection });
@@ -349,7 +364,6 @@ class App extends Component {
             </div>
           </div>
           {/* <Login /> */}
-          <APICaller />
           <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
             buttonText="Login"
