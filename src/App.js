@@ -5,6 +5,8 @@ import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
+import { Button } from "react-bootstrap";
+
 import Login from "./components/googleLogin";
 
 import { GoogleLogin } from "react-google-login";
@@ -200,9 +202,8 @@ class App extends Component {
     e.preventDefault();
     const ACCESS_KEY =
       "b97cc352335ea33a72e964d4c985c386b54ac45abbb031bbb23ba1c2bca3b116";
-    const api_call = await fetch(
-      `https://api.unsplash.com/photos/random/?client_id=${ACCESS_KEY}&orientation=landscape`
-    );
+    const URI = "https://api.unsplash.com/photos/random/?client_id=";
+    const api_call = await fetch(`${URI}${ACCESS_KEY}`);
     const response = await api_call.json();
     const imageUrl = response.urls.regular;
     const userProfile = response.user.links.html;
@@ -337,8 +338,22 @@ class App extends Component {
     }
   };
 
+  goTo(route) {
+    this.props.history.replace(`/${route}`);
+  }
+
+  login() {
+    this.props.auth.login();
+  }
+
+  logout() {
+    this.props.auth.logout();
+  }
+
   render() {
     document.body.style.backgroundColor = "#fff6f3";
+
+    const { isAuthenticated } = this.props.auth;
 
     const responseGoogle = response => {
       console.log(response);
@@ -364,12 +379,39 @@ class App extends Component {
             </div>
           </div>
           {/* <Login /> */}
-          <GoogleLogin
+          {/* <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
-          />
+          /> */}
+
+          <Button
+            bsStyle="primary"
+            className="btn-margin"
+            onClick={this.goTo.bind(this, "home")}
+          >
+            Home
+          </Button>
+          {!isAuthenticated() && (
+            <Button
+              bsStyle="primary"
+              className="btn-margin"
+              onClick={this.login.bind(this)}
+            >
+              Log In
+            </Button>
+          )}
+          {isAuthenticated() && (
+            <Button
+              bsStyle="primary"
+              className="btn-margin"
+              onClick={this.logout.bind(this)}
+            >
+              Log Out
+            </Button>
+          )}
+
           {/* <GoogleLogout buttonText="Logout" onLogoutSuccess={logout} /> */}
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
