@@ -8,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.css";
 class App extends Component {
   state = {
     areYouAddingAnEvent: false,
-    access_token: null,
     favouriteEvent: null,
     oldImageUrl: undefined,
     sortDirection: "byKey",
@@ -207,66 +206,46 @@ class App extends Component {
   };
 
   handleSheetRead = async () => {
+    const API_ROUTE = "https://sheets.googleapis.com/v4/spreadsheets/";
+    const FILE_ID = "1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk";
+    const COMMAND = "/values/B2%3AC2?";
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
-    const API_ROUTE_FOR_CALL =
-      "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk/values/B2%3AC2?key=";
 
-    const api_call = await fetch(`${API_ROUTE_FOR_CALL}${API_KEY}`);
+    const api_call = await fetch(
+      `${API_ROUTE}${FILE_ID}${COMMAND}key=${API_KEY}`
+    );
     const apiCallContents = await api_call.json();
-    // console.log(apiCallContents);
     const values = apiCallContents.values[0];
-    // console.log(values);
-    // const favouriteEvent = parseInt(values[0]);
-    // console.log(favouriteEvent);
     const eventsString = values[1];
-    // console.log(eventsString);
     let events = JSON.parse(eventsString);
-    //console.log(events);
     const dafaultEvent = this.state.events[0];
     events.unshift(dafaultEvent);
-    // console.log(events);
-
-    // console.log(favouriteEvent);
-    // console.log(this.state.favouriteEvent);
-
-    // this.setState({ favouriteEvent }); //katki miskipärast
     this.setState({ events });
+    authentication.authenticate().then(auth => {
+      getData(auth);
+    });
   };
 
   handleWriteCookie = async () => {
-    const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
-    const API_ROUTE_FOR_CALL =
-      "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk:batchUpdate?key=";
-    const COMMAND =
-      '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
-    const ACCESS_TOKEN =
-      "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw";
-    fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`, {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin":
-          "https://fervent-lumiere-e97c88.netlify.com/",
-        Authorization: `Bearer ${this.state.access_token}`,
-        "Access Token":
-          "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw",
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    });
-    // let events = [...this.state.events];
-    // events.shift();
-    // const eventsString = JSON.stringify(events);
-
-    // const favouriteEvent = this.state.favouriteEvent;
-    // const combinedString = [favouriteEvent, eventsString];
-    // const cookieContent = JSON.stringify(combinedString);
-
-    // console.log(this.state.time);
-    // console.log(favouriteEvent);
-    // console.log(eventsString);
-
-    // this.handleDelete("cookie");
-    // document.cookie = cookieContent;
+    // const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
+    // const API_ROUTE_FOR_CALL =
+    //   "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk:batchUpdate?key=";
+    // const COMMAND =
+    //   '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
+    // const ACCESS_TOKEN =
+    //   "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw";
+    // const fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Access-Control-Allow-Origin":
+    //       "https://fervent-lumiere-e97c88.netlify.com/",
+    //     Authorization: `Bearer ${ACCESS_TOKEN}`,
+    //     "Access Token":
+    //       "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw",
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   }
+    // });
   };
 
   handleSort = type => {
