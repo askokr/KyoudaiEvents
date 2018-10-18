@@ -221,9 +221,6 @@ class App extends Component {
     const dafaultEvent = this.state.events[0];
     events.unshift(dafaultEvent);
     this.setState({ events });
-    authentication.authenticate().then(auth => {
-      getData(auth);
-    });
   };
 
   handleWriteCookie = async () => {
