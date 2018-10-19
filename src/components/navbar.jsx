@@ -18,7 +18,7 @@ const NavBar = ({
 }) => {
   let isThereACookie = document.cookie !== "" ? true : false;
   const responseGoogle = response => {
-    console.log(response);
+    // console.log(response);
     onAccessToken(response.tokenObj.access_token);
   };
   return (

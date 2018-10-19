@@ -226,13 +226,14 @@ class App extends Component {
 
   handleWriteCookie = async () => {
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
-    const API_ROUTE_FOR_CALL =
-      "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk:batchUpdate?key=";
+    const SPREADSHEET_ID = "1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk";
+    const API_ROUTE_FOR_CALL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}:batchUpdate?key=`;
     const COMMAND =
       '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
     const { ACCESS_TOKEN } = this.state;
-    console.log(ACCESS_TOKEN);
-    fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`, {
+    const addressToFetch = `${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`;
+    console.log(addressToFetch);
+    fetch(addressToFetch, {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin":
@@ -242,6 +243,12 @@ class App extends Component {
         "Content-Type": "application/json"
       }
     });
+    // var oauthToken = ACCESS_TOKEN;
+    // var xhr = new XMLHttpRequest();
+
+    // xhr.open("POST", addressToFetch);
+    // xhr.setRequestHeader("Authorization", "Bearer " + oauthToken);
+    // xhr.send();
   };
 
   handleSort = type => {
