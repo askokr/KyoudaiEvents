@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
   state = {
+    ACCESS_TOKEN: "",
     areYouAddingAnEvent: false,
     favouriteEvent: null,
     oldImageUrl: undefined,
@@ -224,25 +225,23 @@ class App extends Component {
   };
 
   handleWriteCookie = async () => {
-    // const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
-    // const API_ROUTE_FOR_CALL =
-    //   "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk:batchUpdate?key=";
-    // const COMMAND =
-    //   '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
-    // const ACCESS_TOKEN =
-    //   "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw";
-    // const fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Access-Control-Allow-Origin":
-    //       "https://fervent-lumiere-e97c88.netlify.com/",
-    //     Authorization: `Bearer ${ACCESS_TOKEN}`,
-    //     "Access Token":
-    //       "ya29.Glw2Bi_GNZMsT_hJK0COxpZg3koRwi5ENaCQt-50Hf_HYnpuu3N7AS8b4Ja_f5RwJyIcMo0vHaVhKdYch6y32rlIwd45BJEihUiTmGazlgXF7xSOXCShzaQdM9KUtw",
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   }
-    // });
+    const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
+    const API_ROUTE_FOR_CALL =
+      "https://sheets.googleapis.com/v4/spreadsheets/1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk:batchUpdate?key=";
+    const COMMAND =
+      '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
+    const { ACCESS_TOKEN } = this.state;
+    console.log(ACCESS_TOKEN);
+    fetch(`${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin":
+          "https://fervent-lumiere-e97c88.netlify.com/",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    });
   };
 
   handleSort = type => {
@@ -307,6 +306,10 @@ class App extends Component {
     }
   };
 
+  handleAccessToken = ACCESS_TOKEN => {
+    this.setState({ ACCESS_TOKEN });
+  };
+
   render() {
     document.body.style.backgroundColor = "#fff6f3";
 
@@ -314,6 +317,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar
+          onAccessToken={this.handleAccessToken}
           onDelete={this.handleDelete}
           onDisplay={this.handleDisplay}
           onReadCookie={this.handleSheetRead}
