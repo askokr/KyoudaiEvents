@@ -28,6 +28,7 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
+    this.handleSheetRead();
   }
 
   update = () => {
@@ -208,13 +209,13 @@ class App extends Component {
 
   handleSheetRead = async () => {
     const API_ROUTE = "https://sheets.googleapis.com/v4/spreadsheets/";
-    const FILE_ID = "1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk";
+    const FILE_ID = "1Np5G3EEvkKWRxlBu17DGiDj0hY53sMbI7BKqO246irs";
     const COMMAND = "/values/B2%3AC2?";
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
+    const API_CALL = `${API_ROUTE}${FILE_ID}${COMMAND}key=${API_KEY}`;
 
-    const api_call = await fetch(
-      `${API_ROUTE}${FILE_ID}${COMMAND}key=${API_KEY}`
-    );
+    const api_call = await fetch(API_CALL);
+
     const apiCallContents = await api_call.json();
     const values = apiCallContents.values[0];
     const eventsString = values[1];
@@ -229,24 +230,27 @@ class App extends Component {
     const SPREADSHEET_ID = "1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk";
     const API_ROUTE_FOR_CALL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}:batchUpdate?key=`;
     const COMMAND =
-      '{"requests":[{"insertDimension": {"range":{"sheetId":0,"dimension":"ROWS","startIndex": 1,"endIndex": 2},"inheritFromBefore":false}}]}';
+      '{"requests":[{"insertDimension":{"range":{"sheetId":0,"dimension":"ROWS","startIndex":1,"endIndex":2},"inheritFromBefore":false}}]}';
+    const XRS_COMMAND =
+      "{requests=[{insertDimension={range={sheetId=0,dimension=ROWS,startIndex=1,endIndex=2},inheritFromBefore=false}}]}";
     const { ACCESS_TOKEN } = this.state;
     const addressToFetch = `${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`;
-    console.log(addressToFetch);
+    const XRSaddressToFetch = `${API_ROUTE_FOR_CALL}${API_KEY}${XRS_COMMAND}`;
+    console.log(ACCESS_TOKEN);
+    console.log(XRSaddressToFetch);
     fetch(addressToFetch, {
       method: "POST",
       headers: {
-        "Access-Control-Allow-Origin":
-          "https://fervent-lumiere-e97c88.netlify.com/",
         Authorization: `Bearer ${ACCESS_TOKEN}`,
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Origin: "https://fervent-lumiere-e97c88.netlify.com/"
       }
     });
     // var oauthToken = ACCESS_TOKEN;
     // var xhr = new XMLHttpRequest();
 
-    // xhr.open("POST", addressToFetch);
+    // xhr.open("POST", XRSaddressToFetch);
     // xhr.setRequestHeader("Authorization", "Bearer " + oauthToken);
     // xhr.send();
   };
