@@ -5,6 +5,10 @@ import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
+window.googleDocCallback = function() {
+  return true;
+};
+
 class App extends Component {
   state = {
     ACCESS_TOKEN: "",
@@ -227,32 +231,37 @@ class App extends Component {
 
   handleWriteCookie = async () => {
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
-    const SPREADSHEET_ID = "1syL5nLI6lmz4qoMtshYTdZjx_Q5l75elG9iPtcKKgvk";
-    const API_ROUTE_FOR_CALL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}:batchUpdate?key=`;
-    const COMMAND =
-      '{"requests":[{"insertDimension":{"range":{"sheetId":0,"dimension":"ROWS","startIndex":1,"endIndex":2},"inheritFromBefore":false}}]}';
-    const XRS_COMMAND =
-      "{requests=[{insertDimension={range={sheetId=0,dimension=ROWS,startIndex=1,endIndex=2},inheritFromBefore=false}}]}";
+    const SPREADSHEET_ID = "1Np5G3EEvkKWRxlBu17DGiDj0hY53sMbI7BKqO246irs";
+    const API_ROUTE_FOR_CALL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}:batchUpdate?key=${API_KEY}`;
+    const COMMAND = {
+      requests: [
+        {
+          insertDimension: {
+            range: {
+              sheetId: 0,
+              dimension: "ROWS",
+              startIndex: 1,
+              endIndex: 2
+            },
+            inheritFromBefore: false
+          }
+        }
+      ]
+    };
     const { ACCESS_TOKEN } = this.state;
-    const addressToFetch = `${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`;
-    const XRSaddressToFetch = `${API_ROUTE_FOR_CALL}${API_KEY}${XRS_COMMAND}`;
-    console.log(ACCESS_TOKEN);
-    console.log(XRSaddressToFetch);
-    fetch(addressToFetch, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Origin: "https://fervent-lumiere-e97c88.netlify.com/"
-      }
-    });
-    // var oauthToken = ACCESS_TOKEN;
-    // var xhr = new XMLHttpRequest();
-
-    // xhr.open("POST", XRSaddressToFetch);
-    // xhr.setRequestHeader("Authorization", "Bearer " + oauthToken);
-    // xhr.send();
+    // const addressToFetch = `${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`;
+    // console.log(ACCESS_TOKEN);
+    // const a = await fetch(addressToFetch, {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: `Bearer ${ACCESS_TOKEN}`
+    //   }
+    // });
+    // console.log(a);
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", API_ROUTE_FOR_CALL);
+    xhr.setRequestHeader("Authorization", "Bearer " + ACCESS_TOKEN);
+    xhr.send(JSON.stringify(COMMAND));
   };
 
   handleSort = type => {

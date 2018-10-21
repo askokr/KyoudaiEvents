@@ -16,7 +16,6 @@ const NavBar = ({
   time,
   whatEvetsToDisplay
 }) => {
-  let isThereACookie = document.cookie !== "" ? true : false;
   const responseGoogle = response => {
     // console.log(response);
     onAccessToken(response.tokenObj.access_token);
@@ -29,15 +28,23 @@ const NavBar = ({
 
           <GoogleLogin
             clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
-            buttonText="Login"
+            buttonText={
+              <React.Fragment>
+                <img
+                  src="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png"
+                  style={{ height: "2em" }}
+                />
+                <span> Google login</span>
+              </React.Fragment>
+            }
             scope="profile email https://www.googleapis.com/auth/spreadsheets"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
+            className={"btn btn-lg btn-outline-success"}
           />
           <SaveLoadButtonGruop
             onReadCookie={onReadCookie}
             onWriteCookie={onWriteCookie}
-            isThereACookie={isThereACookie}
           />
           <SortOrderButtonGroup onSort={onSort} sortDirection={sortDirection} />
           <ElementsToDisplayButtonGroup
