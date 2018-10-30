@@ -5,6 +5,8 @@ import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
+import BatchUpdate from "./components/batchupdate";
+
 window.googleDocCallback = function() {
   return true;
 };
@@ -32,7 +34,7 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
-    this.handleSheetRead();
+    // this.handleSheetRead();
   }
 
   update = () => {
@@ -249,17 +251,8 @@ class App extends Component {
       ]
     };
     const { ACCESS_TOKEN } = this.state;
-    // const addressToFetch = `${API_ROUTE_FOR_CALL}${API_KEY}${COMMAND}`;
-    // console.log(ACCESS_TOKEN);
-    // const a = await fetch(addressToFetch, {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${ACCESS_TOKEN}`
-    //   }
-    // });
-    // console.log(a);
     var xhr = new XMLHttpRequest();
-    xhr.open("PUT", API_ROUTE_FOR_CALL);
+    xhr.open("POST", API_ROUTE_FOR_CALL);
     xhr.setRequestHeader("Authorization", "Bearer " + ACCESS_TOKEN);
     xhr.send(JSON.stringify(COMMAND));
   };
@@ -354,7 +347,6 @@ class App extends Component {
               <p className="lead">{message[1]}</p>
             </div>
           </div>
-
           <TimerList
             areYouAddingAnEvent={this.state.areYouAddingAnEvent}
             events={this.displayedEvents(this.state.events)}
