@@ -28,7 +28,7 @@ class SaveMenu extends Component {
           modal
           closeOnDocumentClick
         >
-          <div>
+          <div className="popupbox">
             <p>
               <strong>
                 Salvestamiseks pead sa sisse logima vastava õigusega Google
