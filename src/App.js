@@ -5,8 +5,6 @@ import Footer from "./components/footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-import BatchUpdate from "./components/batchupdate";
-
 window.googleDocCallback = function() {
   return true;
 };
@@ -14,6 +12,7 @@ window.googleDocCallback = function() {
 class App extends Component {
   state = {
     ACCESS_TOKEN: "",
+    USERNAME: "",
     areYouAddingAnEvent: false,
     favouriteEvent: null,
     oldImageUrl: undefined,
@@ -34,7 +33,7 @@ class App extends Component {
   //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
-    // this.handleSheetRead();
+    this.handleSheetRead();
   }
 
   update = () => {
@@ -42,9 +41,6 @@ class App extends Component {
       time: new Date()
     });
     this.rememberSortorder();
-    // document.cookie !== ""
-    //   ? console.log(document.cooki)
-    //   : console.log("no cookie");
   };
   //Sort images to be displayed
   displayedEvents = () => {
@@ -216,15 +212,15 @@ class App extends Component {
   handleSheetRead = async () => {
     const API_ROUTE = "https://sheets.googleapis.com/v4/spreadsheets/";
     const FILE_ID = "1Np5G3EEvkKWRxlBu17DGiDj0hY53sMbI7BKqO246irs";
-    const COMMAND = "/values/B2%3AC2?";
+    const REQUEST = "/values/C2?";
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
-    const API_CALL = `${API_ROUTE}${FILE_ID}${COMMAND}key=${API_KEY}`;
+    const API_CALL = `${API_ROUTE}${FILE_ID}${REQUEST}key=${API_KEY}`;
 
     const api_call = await fetch(API_CALL);
 
     const apiCallContents = await api_call.json();
     const values = apiCallContents.values[0];
-    const eventsString = values[1];
+    const eventsString = values[0];
     let events = JSON.parse(eventsString);
     const dafaultEvent = this.state.events[0];
     events.unshift(dafaultEvent);
@@ -232,29 +228,76 @@ class App extends Component {
   };
 
   handleWriteCookie = async () => {
+    let events = [...this.state.events];
+    events.shift();
+    const eventsString = JSON.stringify(events);
+    const saveTime = this.state.time;
+    const saverName = this.state.USERNAME;
+
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
     const SPREADSHEET_ID = "1Np5G3EEvkKWRxlBu17DGiDj0hY53sMbI7BKqO246irs";
-    const API_ROUTE_FOR_CALL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}:batchUpdate?key=${API_KEY}`;
-    const COMMAND = {
+    const { ACCESS_TOKEN } = this.state;
+    const API_ROUTE = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}:batchUpdate?key=${API_KEY}`;
+    const REQUEST = {
       requests: [
         {
           insertDimension: {
             range: {
-              sheetId: 0,
               dimension: "ROWS",
+              sheetId: 0,
               startIndex: 1,
               endIndex: 2
             },
             inheritFromBefore: false
           }
+        },
+        {
+          updateCells: {
+            rows: [
+              {
+                values: [
+                  {
+                    userEnteredValue: {
+                      stringValue: saverName
+                    }
+                  },
+                  {
+                    userEnteredValue: {
+                      stringValue: saveTime
+                    }
+                  },
+                  {
+                    userEnteredValue: {
+                      stringValue: eventsString
+                    }
+                  }
+                ]
+              }
+            ],
+            start: {
+              sheetId: 0,
+              rowIndex: 1,
+              columnIndex: 0
+            },
+            fields: "*"
+          }
+        },
+        {
+          deleteDimension: {
+            range: {
+              dimension: "ROWS",
+              sheetId: 0,
+              startIndex: 200,
+              endIndex: 201
+            }
+          }
         }
       ]
     };
-    const { ACCESS_TOKEN } = this.state;
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", API_ROUTE_FOR_CALL);
+    xhr.open("POST", API_ROUTE);
     xhr.setRequestHeader("Authorization", "Bearer " + ACCESS_TOKEN);
-    xhr.send(JSON.stringify(COMMAND));
+    xhr.send(JSON.stringify(REQUEST));
   };
 
   handleSort = type => {
@@ -322,6 +365,9 @@ class App extends Component {
   handleAccessToken = ACCESS_TOKEN => {
     this.setState({ ACCESS_TOKEN });
   };
+  handleUsername = USERNAME => {
+    this.setState({ USERNAME });
+  };
 
   render() {
     document.body.style.backgroundColor = "#fff6f3";
@@ -331,6 +377,7 @@ class App extends Component {
       <React.Fragment>
         <NavBar
           onAccessToken={this.handleAccessToken}
+          onUsername={this.handleUsername}
           onDelete={this.handleDelete}
           onDisplay={this.handleDisplay}
           onReadCookie={this.handleSheetRead}

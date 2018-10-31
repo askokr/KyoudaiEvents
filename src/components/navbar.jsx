@@ -1,5 +1,4 @@
 import React from "react";
-import MediaQuery from "react-responsive";
 import Clock from "./NavBarElements/clock";
 import SaveLoadButtonGruop from "./NavBarElements/saveLoadButtonGroup";
 import SortOrderButtonGroup from "./NavBarElements/sortOrderButtonGroup";
@@ -8,6 +7,7 @@ import GoogleLogin from "react-google-login";
 
 const NavBar = ({
   onAccessToken,
+  onUsername,
   onDisplay,
   onReadCookie,
   onSort,
@@ -17,8 +17,9 @@ const NavBar = ({
   whatEvetsToDisplay
 }) => {
   const responseGoogle = response => {
-    // console.log(response);
+    console.log(response);
     onAccessToken(response.tokenObj.access_token);
+    onUsername(response.profileObj.name);
   };
   return (
     <React.Fragment>
@@ -32,6 +33,7 @@ const NavBar = ({
               <React.Fragment>
                 <img
                   src="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png"
+                  alt="Google"
                   style={{ height: "2em" }}
                 />
                 <span> Google login</span>

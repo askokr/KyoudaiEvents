@@ -5,13 +5,7 @@ import Octicon from "react-octicon";
 
 class Buttons extends Component {
   render() {
-    const {
-      eventId,
-      favouriteEvent,
-      onDelete,
-      onEdit,
-      onFavourite
-    } = this.props;
+    const { eventId, onDelete, onEdit } = this.props;
     const message = [
       "Kustuta sündmus",
       "Muuda sündmust",
