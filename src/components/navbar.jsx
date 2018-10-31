@@ -18,8 +18,6 @@ const NavBar = ({
     <React.Fragment>
       <nav className="navbar sticky-top navbar-light bg-dark">
         <div className="row">
-          {/* <h1 className="text-white m-4">Events</h1> */}
-
           <SaveMenu onGoogleResponse={onGoogleResponse} />
           <SaveLoadButtonGruop onSheetRead={onSheetRead} />
           <SortOrderButtonGroup onSort={onSort} sortDirection={sortDirection} />

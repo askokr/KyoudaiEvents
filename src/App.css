@@ -166,6 +166,17 @@
   font-style: oblique;
   font-weight: 500;
 }
+
+.footer {
+  color: white;
+  text-shadow: 1px 1px gray;
+}
+
+.footer::selection {
+  color: black;
+  text-shadow: 0px 0px gray;
+}
+
 /* 
 .btn-outline-primary:hover {
   background-color: #0069d9 !important;

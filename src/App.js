@@ -285,6 +285,7 @@ class App extends Component {
     xhr.open("POST", API_ROUTE);
     xhr.setRequestHeader("Authorization", "Bearer " + access_token);
     xhr.send(JSON.stringify(REQUEST));
+    this.handlePopup(false);
   };
 
   handleSheetRead = async () => {
