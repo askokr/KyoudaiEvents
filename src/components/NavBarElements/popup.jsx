@@ -49,7 +49,7 @@ class SaveMenu extends Component {
                 <span> Edukalt salvestatud</span>
               </div>
             ) : (
-              <div className="save-status save-status-ok">
+              <div className="save-status save-status-notok">
                 <Octicon name="alert" mega />
                 <span> Salvestamine ebaõnnestus</span>
               </div>
