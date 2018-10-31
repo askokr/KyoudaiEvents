@@ -11,8 +11,6 @@ window.googleDocCallback = function() {
 
 class App extends Component {
   state = {
-    ACCESS_TOKEN: "",
-    USERNAME: "",
     areYouAddingAnEvent: false,
     favouriteEvent: null,
     oldImageUrl: undefined,
@@ -30,7 +28,6 @@ class App extends Component {
     ]
   };
 
-  //the place to create a state, make ajax calls etc
   componentDidMount() {
     setInterval(this.update, 1000);
     this.handleSheetRead();
@@ -42,7 +39,7 @@ class App extends Component {
     });
     this.rememberSortorder();
   };
-  //Sort images to be displayed
+
   displayedEvents = () => {
     let usnortedEvents = [...this.state.events];
     const currentTime = this.state.time;
@@ -187,6 +184,16 @@ class App extends Component {
     this.setState({ events });
   };
 
+  handleGoogleResponse = response => {
+    try {
+      const { access_token } = response.tokenObj;
+      const username = response.profileObj.name;
+      this.handleSaveEvents(access_token, username);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   handleImageUrl = e => {
     const value = e.target.value;
     const events = [...this.state.events];
@@ -209,34 +216,14 @@ class App extends Component {
     this.setState(events);
   };
 
-  handleSheetRead = async () => {
-    const API_ROUTE = "https://sheets.googleapis.com/v4/spreadsheets/";
-    const FILE_ID = "1Np5G3EEvkKWRxlBu17DGiDj0hY53sMbI7BKqO246irs";
-    const REQUEST = "/values/C2?";
-    const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
-    const API_CALL = `${API_ROUTE}${FILE_ID}${REQUEST}key=${API_KEY}`;
-
-    const api_call = await fetch(API_CALL);
-
-    const apiCallContents = await api_call.json();
-    const values = apiCallContents.values[0];
-    const eventsString = values[0];
-    let events = JSON.parse(eventsString);
-    const dafaultEvent = this.state.events[0];
-    events.unshift(dafaultEvent);
-    this.setState({ events });
-  };
-
-  handleWriteCookie = async () => {
+  handleSaveEvents = async (access_token, username) => {
     let events = [...this.state.events];
     events.shift();
     const eventsString = JSON.stringify(events);
     const saveTime = this.state.time;
-    const saverName = this.state.USERNAME;
 
     const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
     const SPREADSHEET_ID = "1Np5G3EEvkKWRxlBu17DGiDj0hY53sMbI7BKqO246irs";
-    const { ACCESS_TOKEN } = this.state;
     const API_ROUTE = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}:batchUpdate?key=${API_KEY}`;
     const REQUEST = {
       requests: [
@@ -258,7 +245,7 @@ class App extends Component {
                 values: [
                   {
                     userEnteredValue: {
-                      stringValue: saverName
+                      stringValue: username
                     }
                   },
                   {
@@ -296,8 +283,26 @@ class App extends Component {
     };
     var xhr = new XMLHttpRequest();
     xhr.open("POST", API_ROUTE);
-    xhr.setRequestHeader("Authorization", "Bearer " + ACCESS_TOKEN);
+    xhr.setRequestHeader("Authorization", "Bearer " + access_token);
     xhr.send(JSON.stringify(REQUEST));
+  };
+
+  handleSheetRead = async () => {
+    const API_ROUTE = "https://sheets.googleapis.com/v4/spreadsheets/";
+    const FILE_ID = "1Np5G3EEvkKWRxlBu17DGiDj0hY53sMbI7BKqO246irs";
+    const REQUEST = "/values/C2?";
+    const API_KEY = "AIzaSyCUmw_0VD7EYk2JBh8oeOmN3fRtR2nb1lU";
+    const API_CALL = `${API_ROUTE}${FILE_ID}${REQUEST}key=${API_KEY}`;
+
+    const api_call = await fetch(API_CALL);
+
+    const apiCallContents = await api_call.json();
+    const values = apiCallContents.values[0];
+    const eventsString = values[0];
+    let events = JSON.parse(eventsString);
+    const dafaultEvent = this.state.events[0];
+    events.unshift(dafaultEvent);
+    this.setState({ events });
   };
 
   handleSort = type => {
@@ -362,13 +367,6 @@ class App extends Component {
     }
   };
 
-  handleAccessToken = ACCESS_TOKEN => {
-    this.setState({ ACCESS_TOKEN });
-  };
-  handleUsername = USERNAME => {
-    this.setState({ USERNAME });
-  };
-
   render() {
     document.body.style.backgroundColor = "#fff6f3";
 
@@ -376,13 +374,11 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar
-          onAccessToken={this.handleAccessToken}
-          onUsername={this.handleUsername}
           onDelete={this.handleDelete}
           onDisplay={this.handleDisplay}
-          onReadCookie={this.handleSheetRead}
+          onGoogleResponse={this.handleGoogleResponse}
+          onSheetRead={this.handleSheetRead}
           onSort={this.handleSort}
-          onWriteCookie={this.handleWriteCookie}
           sortDirection={this.state.sortDirection}
           time={this.state.time}
           whatEvetsToDisplay={this.state.whatEvetsToDisplay}

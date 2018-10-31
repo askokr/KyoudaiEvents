@@ -3,51 +3,25 @@ import Clock from "./NavBarElements/clock";
 import SaveLoadButtonGruop from "./NavBarElements/saveLoadButtonGroup";
 import SortOrderButtonGroup from "./NavBarElements/sortOrderButtonGroup";
 import ElementsToDisplayButtonGroup from "./NavBarElements/elementsToDisplayButtonGroup";
-import GoogleLogin from "react-google-login";
+import SaveMenu from "./NavBarElements/popup";
 
 const NavBar = ({
-  onAccessToken,
-  onUsername,
   onDisplay,
-  onReadCookie,
+  onGoogleResponse,
+  onSheetRead,
   onSort,
-  onWriteCookie,
   sortDirection,
   time,
   whatEvetsToDisplay
 }) => {
-  const responseGoogle = response => {
-    console.log(response);
-    onAccessToken(response.tokenObj.access_token);
-    onUsername(response.profileObj.name);
-  };
   return (
     <React.Fragment>
       <nav className="navbar sticky-top navbar-light bg-dark">
         <div className="row">
           {/* <h1 className="text-white m-4">Events</h1> */}
 
-          <GoogleLogin
-            clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
-            buttonText={
-              <React.Fragment>
-                <img
-                  src="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png"
-                  alt="Google"
-                  style={{ height: "2em" }}
-                />
-                <span> Google login</span>
-              </React.Fragment>
-            }
-            scope="profile email https://www.googleapis.com/auth/spreadsheets"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            className={"btn btn-lg btn-outline-success"}
-          />
-          <SaveLoadButtonGruop
-            onReadCookie={onReadCookie}
-            onWriteCookie={onWriteCookie}
-          />
+          <SaveMenu onGoogleResponse={onGoogleResponse} />
+          <SaveLoadButtonGruop onSheetRead={onSheetRead} />
           <SortOrderButtonGroup onSort={onSort} sortDirection={sortDirection} />
           <ElementsToDisplayButtonGroup
             onDisplay={onDisplay}
