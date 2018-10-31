@@ -3,10 +3,11 @@ import Popup from "reactjs-popup";
 import GoogleLogin from "react-google-login";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
+import Octicon from "react-octicon";
 
 class SaveMenu extends Component {
   render() {
-    const { onGoogleResponse } = this.props;
+    const { onGoogleResponse, responseMessage } = this.props;
     const responseGoogle = response => {
       onGoogleResponse(response);
     };
@@ -40,6 +41,19 @@ class SaveMenu extends Component {
               olevaid Google arvutustabeleid.
             </p>
             <p>Rakendus talletab sinu isiklike andmeid vaid sessiooni ajaks.</p>
+            {responseMessage === "" ? (
+              ""
+            ) : responseMessage === "OK" ? (
+              <div className="save-status save-status-ok">
+                <Octicon name="thumbsup" mega />
+                <span> Edukalt salvestatud</span>
+              </div>
+            ) : (
+              <div className="save-status save-status-ok">
+                <Octicon name="alert" mega />
+                <span> Salvestamine ebaõnnestus</span>
+              </div>
+            )}
             <GoogleLogin
               clientId="64126451358-mmmraa7mnlsjktmbptde0v3fe5p6ns2g.apps.googleusercontent.com"
               buttonText={

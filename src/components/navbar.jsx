@@ -10,6 +10,7 @@ const NavBar = ({
   onGoogleResponse,
   onSheetRead,
   onSort,
+  responseMessage,
   sortDirection,
   time,
   whatEvetsToDisplay
@@ -18,7 +19,10 @@ const NavBar = ({
     <React.Fragment>
       <nav className="navbar sticky-top navbar-light bg-dark">
         <div className="row">
-          <SaveMenu onGoogleResponse={onGoogleResponse} />
+          <SaveMenu
+            onGoogleResponse={onGoogleResponse}
+            responseMessage={responseMessage}
+          />
           <SaveLoadButtonGruop onSheetRead={onSheetRead} />
           <SortOrderButtonGroup onSort={onSort} sortDirection={sortDirection} />
           <ElementsToDisplayButtonGroup

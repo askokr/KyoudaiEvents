@@ -14,6 +14,7 @@ class App extends Component {
     areYouAddingAnEvent: false,
     favouriteEvent: null,
     oldImageUrl: undefined,
+    responseMessage: "",
     sortDirection: "byKey",
     time: new Date(),
     whatEventAreYouEditing: null,
@@ -92,7 +93,8 @@ class App extends Component {
     if (eventId === this.state.favouriteEvent) {
       this.setState({ favouriteEvent });
     }
-    this.setState({ events });
+    const responseMessage = "";
+    this.setState({ events, responseMessage });
   };
 
   handleDisplay = type => {
@@ -171,9 +173,8 @@ class App extends Component {
       events[indexOfEvent].imageUrl = newImageUrl;
 
       whatEventAreYouEditing = null;
-      this.setState({ whatEventAreYouEditing });
       const oldImageUrl = undefined;
-      this.setState({ oldImageUrl });
+      this.setState({ oldImageUrl, whatEventAreYouEditing });
     }
     events[0] = {
       eventName: "",
@@ -181,7 +182,8 @@ class App extends Component {
       imageUrl: "",
       eventId: 0
     };
-    this.setState({ events });
+    const responseMessage = "";
+    this.setState({ events, responseMessage });
   };
 
   handleGoogleResponse = response => {
@@ -281,11 +283,22 @@ class App extends Component {
         }
       ]
     };
+    let responseMessage;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", API_ROUTE);
     xhr.setRequestHeader("Authorization", "Bearer " + access_token);
+    xhr.responseType = "text";
+    xhr.onload = function() {
+      if (xhr.readyState === xhr.DONE) {
+        if (xhr.status === 200) {
+          responseMessage = "OK";
+        } else {
+          responseMessage = "notOK";
+        }
+      }
+      this.setState({ responseMessage });
+    }.bind(this);
     xhr.send(JSON.stringify(REQUEST));
-    this.handlePopup(false);
   };
 
   handleSheetRead = async () => {
@@ -380,6 +393,7 @@ class App extends Component {
           onGoogleResponse={this.handleGoogleResponse}
           onSheetRead={this.handleSheetRead}
           onSort={this.handleSort}
+          responseMessage={this.state.responseMessage}
           sortDirection={this.state.sortDirection}
           time={this.state.time}
           whatEvetsToDisplay={this.state.whatEvetsToDisplay}
