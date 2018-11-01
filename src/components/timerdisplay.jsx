@@ -13,14 +13,7 @@ class TimerDisplay extends Component {
   }
   render() {
     const props = this.props;
-    const {
-      event,
-      favouriteEvent,
-      onDelete,
-      onEdit,
-      onFavourite,
-      time
-    } = props;
+    const { event, onDelete, onEdit, time } = props;
     const { eventName, eventDate, eventId, imageUrl } = event;
     const backgroundImage = {
       backgroundImage: `url(${imageUrl})`
@@ -43,13 +36,7 @@ class TimerDisplay extends Component {
               />
             </div>
             <div className="p-2">
-              <Buttons
-                eventId={eventId}
-                favouriteEvent={favouriteEvent}
-                onDelete={onDelete}
-                onEdit={onEdit}
-                onFavourite={onFavourite}
-              />
+              <Buttons eventId={eventId} onDelete={onDelete} onEdit={onEdit} />
             </div>
           </div>
         </div>

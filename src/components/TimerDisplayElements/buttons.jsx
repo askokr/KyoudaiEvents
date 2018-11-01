@@ -33,25 +33,6 @@ class Buttons extends Component {
             <Octicon name="tools" mega />
           </button>
         </Tooltip>
-        {/* <Tooltip
-          TransitionComponent={Zoom}
-          placement="left"
-          title={
-            eventId === favouriteEvent
-              ? {message[2]}
-              : {message[3]}
-          }
-        >
-          <button
-            className="btn btn-link btn-lg"
-            style={
-              eventId === favouriteEvent ? { color: "red" } : { color: "black" }
-            }
-            onClick={() => onFavourite(eventId)}
-          >
-            <Octicon name="heart" mega />
-          </button>
-        </Tooltip> */}
       </div>
     );
   }

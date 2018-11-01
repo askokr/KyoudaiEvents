@@ -6,13 +6,11 @@ import Editor from "./editor";
 const TimerList = ({
   areYouAddingAnEvent,
   events,
-  favouriteEvent,
   oldImageUrl,
   onDelete,
   onEdit,
   onEventDate,
   onEventName,
-  onFavourite,
   onFormSubmit,
   onImageUrl,
   onRandomImage,
@@ -43,11 +41,9 @@ const TimerList = ({
           return (
             <TimerDisplay
               event={event}
-              favouriteEvent={favouriteEvent}
               time={time}
               onDelete={onDelete}
               onEdit={onEdit}
-              onFavourite={onFavourite}
               key={event.eventId}
             />
           );

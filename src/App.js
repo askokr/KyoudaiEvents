@@ -12,7 +12,6 @@ window.googleDocCallback = function() {
 class App extends Component {
   state = {
     areYouAddingAnEvent: false,
-    favouriteEvent: null,
     oldImageUrl: undefined,
     responseMessage: "",
     sortDirection: "byKey",
@@ -52,12 +51,8 @@ class App extends Component {
     const theZeroeth = usnortedEvents.shift();
     // const favouriteEventId = this.state.favouriteEvent;
     let events = usnortedEvents;
-    let favouriteEvent, sortedEvents;
+    let sortedEvents;
 
-    // if (favouriteEventId !== null) {
-    //   favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
-    //   events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
-    // }
     switch (this.state.whatEvetsToDisplay) {
       case "upcoming":
         sortedEvents = events.filter(
@@ -328,14 +323,8 @@ class App extends Component {
     let usnortedEvents = [...this.state.events];
     const theZeroeth = usnortedEvents.shift();
     // const favouriteEventId = this.state.favouriteEvent;
-    let events, favouriteEvent, sortedEvents, sortDirection;
+    let events, sortedEvents, sortDirection;
 
-    // if (favouriteEventId !== null) {
-    //   favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
-    //   events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
-    // } else {
-    //   events = usnortedEvents;
-    // }
     events = usnortedEvents;
     switch (type) {
       case "ascending":
@@ -353,14 +342,10 @@ class App extends Component {
         break;
     }
     sortedEvents = usnortedEvents;
-    // if (favouriteEventId !== null) {
-    //   sortedEvents.unshift(favouriteEvent);
-    // }
     sortedEvents.unshift(theZeroeth);
     events = sortedEvents;
-    this.setState({ events });
     sortDirection = type;
-    this.setState({ sortDirection });
+    this.setState({ events, sortDirection });
   };
 
   handleToggle = what => {
@@ -382,8 +367,7 @@ class App extends Component {
     } else {
       const whatEventAreYouEditing = null;
       const oldImageUrl = undefined;
-      this.setState({ whatEventAreYouEditing });
-      this.setState({ oldImageUrl });
+      this.setState({ oldImageUrl, whatEventAreYouEditing });
     }
   };
 
@@ -421,7 +405,6 @@ class App extends Component {
             onEdit={this.handleEdit}
             onEventDate={this.handleEventDate}
             onEventName={this.handleEventName}
-            onFavourite={this.handleOnFavourite}
             onFormSubmit={this.handleFormSubmit}
             onImageUrl={this.handleImageUrl}
             onRandomImage={this.handleRandomImage}
