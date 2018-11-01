@@ -16,6 +16,8 @@ class App extends Component {
     oldImageUrl: undefined,
     responseMessage: "",
     sortDirection: "byKey",
+    oldSortDirection: undefined,
+    oldWhatEvetsToDisplay: undefined,
     time: new Date(),
     whatEventAreYouEditing: null,
     whatEvetsToDisplay: "all",
@@ -26,7 +28,8 @@ class App extends Component {
         imageUrl: "",
         eventId: 0
       }
-    ]
+    ],
+    displayedEvents: [{}]
   };
 
   componentDidMount() {
@@ -38,40 +41,53 @@ class App extends Component {
     this.setState({
       time: new Date()
     });
-    this.rememberSortorder();
+    if (this.state.sortDirection !== this.state.oldSortDirection) {
+      const oldSortDirection = this.state.sortDirection;
+      this.setState({ oldSortDirection });
+      this.rememberSortorder();
+    }
   };
 
   displayedEvents = () => {
-    let usnortedEvents = [...this.state.events];
-    const currentTime = this.state.time;
-    const theZeroeth = usnortedEvents.shift();
-    const favouriteEventId = this.state.favouriteEvent;
-    let events = usnortedEvents;
-    let favouriteEvent, sortedEvents;
+    const { whatEvetsToDisplay } = this.state;
+    if (whatEvetsToDisplay !== this.state.oldWhatEvetsToDisplay) {
+      const oldWhatEvetsToDisplay = whatEvetsToDisplay;
+      let usnortedEvents = [...this.state.events];
+      const currentTime = this.state.time;
+      const theZeroeth = usnortedEvents.shift();
+      // const favouriteEventId = this.state.favouriteEvent;
+      let events = usnortedEvents;
+      let favouriteEvent, sortedEvents;
 
-    if (favouriteEventId !== null) {
-      favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
-      events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
+      // if (favouriteEventId !== null) {
+      //   favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
+      //   events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
+      // }
+      switch (whatEvetsToDisplay) {
+        case "upcoming":
+          sortedEvents = events.filter(
+            e => new Date(e.eventDate) > new Date(currentTime)
+          );
+          break;
+        case "passed":
+          sortedEvents = events.filter(
+            e => new Date(e.eventDate) < new Date(currentTime)
+          );
+          break;
+        default:
+          sortedEvents = events;
+      }
+      // if (favouriteEventId !== null) {
+      //   sortedEvents.unshift(favouriteEvent);
+      // }
+      sortedEvents.unshift(theZeroeth);
+      const displayedEvents = sortedEvents;
+      if (this.state.events.length !== 1) {
+        this.setState({ oldWhatEvetsToDisplay, displayedEvents });
+      }
     }
-    switch (this.state.whatEvetsToDisplay) {
-      case "upcoming":
-        sortedEvents = events.filter(
-          e => new Date(e.eventDate) > new Date(currentTime)
-        );
-        break;
-      case "passed":
-        sortedEvents = events.filter(
-          e => new Date(e.eventDate) < new Date(currentTime)
-        );
-        break;
-      default:
-        sortedEvents = events;
-    }
-    if (favouriteEventId !== null) {
-      sortedEvents.unshift(favouriteEvent);
-    }
-    sortedEvents.unshift(theZeroeth);
-    return sortedEvents;
+
+    return this.state.displayedEvents;
   };
 
   rememberSortorder = () => {
@@ -322,15 +338,16 @@ class App extends Component {
   handleSort = type => {
     let usnortedEvents = [...this.state.events];
     const theZeroeth = usnortedEvents.shift();
-    const favouriteEventId = this.state.favouriteEvent;
+    // const favouriteEventId = this.state.favouriteEvent;
     let events, favouriteEvent, sortedEvents, sortDirection;
 
-    if (favouriteEventId !== null) {
-      favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
-      events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
-    } else {
-      events = usnortedEvents;
-    }
+    // if (favouriteEventId !== null) {
+    //   favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
+    //   events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
+    // } else {
+    //   events = usnortedEvents;
+    // }
+    events = usnortedEvents;
     switch (type) {
       case "ascending":
         usnortedEvents.sort(
@@ -347,9 +364,9 @@ class App extends Component {
         break;
     }
     sortedEvents = usnortedEvents;
-    if (favouriteEventId !== null) {
-      sortedEvents.unshift(favouriteEvent);
-    }
+    // if (favouriteEventId !== null) {
+    //   sortedEvents.unshift(favouriteEvent);
+    // }
     sortedEvents.unshift(theZeroeth);
     events = sortedEvents;
     this.setState({ events });
