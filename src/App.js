@@ -17,7 +17,6 @@ class App extends Component {
     responseMessage: "",
     sortDirection: "byKey",
     oldSortDirection: undefined,
-    oldWhatEvetsToDisplay: undefined,
     time: new Date(),
     whatEventAreYouEditing: null,
     whatEvetsToDisplay: "all",
@@ -28,8 +27,7 @@ class App extends Component {
         imageUrl: "",
         eventId: 0
       }
-    ],
-    displayedEvents: [{}]
+    ]
   };
 
   componentDidMount() {
@@ -49,45 +47,36 @@ class App extends Component {
   };
 
   displayedEvents = () => {
-    const { whatEvetsToDisplay } = this.state;
-    if (whatEvetsToDisplay !== this.state.oldWhatEvetsToDisplay) {
-      const oldWhatEvetsToDisplay = whatEvetsToDisplay;
-      let usnortedEvents = [...this.state.events];
-      const currentTime = this.state.time;
-      const theZeroeth = usnortedEvents.shift();
-      // const favouriteEventId = this.state.favouriteEvent;
-      let events = usnortedEvents;
-      let favouriteEvent, sortedEvents;
+    let usnortedEvents = [...this.state.events];
+    const currentTime = this.state.time;
+    const theZeroeth = usnortedEvents.shift();
+    // const favouriteEventId = this.state.favouriteEvent;
+    let events = usnortedEvents;
+    let favouriteEvent, sortedEvents;
 
-      // if (favouriteEventId !== null) {
-      //   favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
-      //   events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
-      // }
-      switch (whatEvetsToDisplay) {
-        case "upcoming":
-          sortedEvents = events.filter(
-            e => new Date(e.eventDate) > new Date(currentTime)
-          );
-          break;
-        case "passed":
-          sortedEvents = events.filter(
-            e => new Date(e.eventDate) < new Date(currentTime)
-          );
-          break;
-        default:
-          sortedEvents = events;
-      }
-      // if (favouriteEventId !== null) {
-      //   sortedEvents.unshift(favouriteEvent);
-      // }
-      sortedEvents.unshift(theZeroeth);
-      const displayedEvents = sortedEvents;
-      if (this.state.events.length !== 1) {
-        this.setState({ oldWhatEvetsToDisplay, displayedEvents });
-      }
+    // if (favouriteEventId !== null) {
+    //   favouriteEvent = usnortedEvents.find(e => e.eventId === favouriteEventId);
+    //   events = usnortedEvents.filter(e => e.eventId !== favouriteEventId);
+    // }
+    switch (this.state.whatEvetsToDisplay) {
+      case "upcoming":
+        sortedEvents = events.filter(
+          e => new Date(e.eventDate) > new Date(currentTime)
+        );
+        break;
+      case "passed":
+        sortedEvents = events.filter(
+          e => new Date(e.eventDate) < new Date(currentTime)
+        );
+        break;
+      default:
+        sortedEvents = events;
     }
-
-    return this.state.displayedEvents;
+    // if (favouriteEventId !== null) {
+    //   sortedEvents.unshift(favouriteEvent);
+    // }
+    sortedEvents.unshift(theZeroeth);
+    return sortedEvents;
   };
 
   rememberSortorder = () => {
