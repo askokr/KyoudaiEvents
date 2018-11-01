@@ -6,6 +6,13 @@ import Zoom from "@material-ui/core/Zoom";
 import Octicon from "react-octicon";
 
 class SaveMenu extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.responseMessage === this.props.responseMessage) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   render() {
     const { onGoogleResponse, responseMessage } = this.props;
     const responseGoogle = response => {

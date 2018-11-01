@@ -3,6 +3,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 
 class EditButton extends Component {
+  shouldComponentUpdate() {
+    return false;
+  }
   render() {
     return this.editButton();
   }

@@ -4,6 +4,13 @@ import TextBox from "./TimerDisplayElements/textBox";
 import "../App.css";
 
 class TimerDisplay extends Component {
+  shouldComponentUpdate() {
+    if (new Date(this.props.time) > this.props.event.eventDate) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   render() {
     const props = this.props;
     const {

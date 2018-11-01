@@ -4,6 +4,13 @@ import Zoom from "@material-ui/core/Zoom";
 import Octicon from "react-octicon";
 
 class SortOrderButtonGroup extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.sortDirection === this.props.sortDirection) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   render() {
     const { onSort, sortDirection } = this.props;
     const message = [

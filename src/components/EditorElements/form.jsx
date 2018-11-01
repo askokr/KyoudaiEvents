@@ -4,6 +4,7 @@ import DateTime from "react-datetime";
 import Octicon from "react-octicon";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
+import { DebounceInput } from "react-debounce-input";
 
 Moment.locale("en-gb", {
   week: {
@@ -12,6 +13,17 @@ Moment.locale("en-gb", {
 });
 
 class Form extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (
+      nextProps.eventName === this.props.eventName &&
+      nextProps.eventDate === this.props.eventDate &&
+      nextProps.imageUrl === this.props.imageUrl
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   render() {
     const {
       eventName,
@@ -36,8 +48,9 @@ class Form extends Component {
               <div className="input-group-prepend">
                 <span className="input-group-text">Event name:</span>
               </div>
-              <input
-                id={eventName}
+              <DebounceInput
+                minLength={1}
+                debounceTimeout={300}
                 className="form-control"
                 name={eventName}
                 type="text"
@@ -67,7 +80,9 @@ class Form extends Component {
             <div className="input-group-prepend">
               <span className="input-group-text">Image URL:</span>
             </div>
-            <input
+            <DebounceInput
+              minLength={1}
+              debounceTimeout={300}
               type="url"
               className="form-control"
               placeholder={message[2]}

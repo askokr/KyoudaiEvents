@@ -4,6 +4,9 @@ import Zoom from "@material-ui/core/Zoom";
 import Octicon from "react-octicon";
 
 class Buttons extends Component {
+  shouldComponentUpdate() {
+    return false;
+  }
   render() {
     const { eventId, onDelete, onEdit } = this.props;
     const message = [

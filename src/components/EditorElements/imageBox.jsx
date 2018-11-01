@@ -1,6 +1,18 @@
 import React, { Component } from "react";
+
 const message = ["Pildi eelvaade", "Praegune pilt", "Uus pilt"];
+
 class ImageBox extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (
+      nextProps.oldImageUrl === this.props.oldImageUrl &&
+      nextProps.newImageUrl === this.props.newImageUrl
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   render() {
     return this.viewChooser();
   }

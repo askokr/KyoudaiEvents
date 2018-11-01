@@ -8,17 +8,18 @@ The Google Sheets API is used access data storage.
 
 The Unsplash API is used to make request for random images.
 
-## Dependencies react-google-login react-octicon reactjs-popup @material-ui/core
+## Dependencies
 
-- [Bootstrap](https://www.npmjs.com/package/bootstrap/) - Appearance
+- [Bootstrap](https://www.npmjs.com/package/bootstrap) - Appearance
   - [Jquery](https://www.npmjs.com/package/jquery) - Dependency of Bootstrap
   - [Propper.js](https://www.npmjs.com/package/propper.js) - Dependency of Bootstrap
-- [React-Responsive](https://www.npmjs.com/package/react-responsive) - For the MediaQuery element
 - [React-Datetime](https://www.npmjs.com/package/react-datetime) - Calendar function
   - [Moment](https://www.npmjs.com/package/momeny) - Dependency of React-Datetime
+- [React-Debounce-Input](https://www.npmjs.com/package/react-debounce-input) - Try to keep renders in check
 - [React-Google-Login](https://www.npmjs.com/package/react-google-login) - To access google sheets API
 - [React-Octicon](https://www.npmjs.com/package/react-octicon) - For the icons
 - [Reactjs-Popup](https://www.npmjs.com/package/reactjs-popup) - Popup save window
+- [React-Responsive](https://www.npmjs.com/package/react-responsive) - For the MediaQuery element
 - [@material-ui/core](https://www.npmjs.com/package/@material-ui/core) - Tooltips
 
 ## Built With

@@ -3,6 +3,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
 
 class SaveLoadButtonGruop extends Component {
+  shouldComponentUpdate() {
+    return false;
+  }
   render() {
     const { onSheetRead } = this.props;
     const message = [

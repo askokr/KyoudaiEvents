@@ -4,6 +4,13 @@ import Zoom from "@material-ui/core/Zoom";
 import Octicon from "react-octicon";
 
 class ElementsToDisplayButtonGroup extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.whatEvetsToDisplay === this.props.whatEvetsToDisplay) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   render() {
     const { onDisplay, whatEvetsToDisplay } = this.props;
     const message = [
