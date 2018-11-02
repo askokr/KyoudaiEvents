@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Moment from "moment";
 import DateTime from "react-datetime";
+import { DebounceInput } from "react-debounce-input";
+import Moment from "moment";
 import Octicon from "react-octicon";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
-import { DebounceInput } from "react-debounce-input";
 
 Moment.locale("en-gb", {
   week: {
@@ -26,8 +26,8 @@ class Form extends Component {
   }
   render() {
     const {
-      eventName,
       eventDate,
+      eventName,
       imageUrl,
       onFormSubmit,
       onEventName,
@@ -35,18 +35,13 @@ class Form extends Component {
       onImageUrl,
       onRandomImage
     } = this.props;
-    const message = [
-      "Sündmuse nimi",
-      "Võta Unsplashist juhuslik pilt",
-      "Link pildi juurde"
-    ];
     return (
       <form className="container-fluid" onSubmit={onFormSubmit}>
         <div className="form-row">
           <div className="col">
             <div className="input-group mb-3 m-2">
               <div className="input-group-prepend">
-                <span className="input-group-text">Event name:</span>
+                <span className="input-group-text">Sündmuse nimi:</span>
               </div>
               <DebounceInput
                 minLength={1}
@@ -57,7 +52,7 @@ class Form extends Component {
                 value={eventName}
                 maxLength="42"
                 onChange={onEventName}
-                placeholder={message[0]}
+                placeholder={"Sündmus"}
               />
             </div>
           </div>
@@ -65,7 +60,7 @@ class Form extends Component {
           <div className="col">
             <div className="input-group mb-3 m-2">
               <div className="input-group-prepend">
-                <span className="input-group-text">Event date:</span>
+                <span className="input-group-text">Sündmsue aeg:</span>
               </div>
               <DateTime
                 value={eventDate}
@@ -78,23 +73,23 @@ class Form extends Component {
         <div className="form-row">
           <div className="input-group mb-3 m-3">
             <div className="input-group-prepend">
-              <span className="input-group-text">Image URL:</span>
+              <span className="input-group-text">Pildi URL:</span>
             </div>
             <DebounceInput
               minLength={1}
               debounceTimeout={300}
               type="url"
               className="form-control"
-              placeholder={message[2]}
               value={imageUrl}
               name="imageUrl"
               onChange={onImageUrl}
+              placeholder={"Link pildi juurde"}
             />
             <div className="input-group-append">
               <Tooltip
+                title={"Võta Unsplashist juhuslik pilt"}
                 TransitionComponent={Zoom}
                 placement="bottom-end"
-                title={message[1]}
               >
                 <button
                   type="button"

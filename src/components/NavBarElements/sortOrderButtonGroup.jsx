@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import Octicon from "react-octicon";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
-import Octicon from "react-octicon";
 
 class SortOrderButtonGroup extends Component {
   shouldComponentUpdate(nextProps) {
@@ -13,14 +13,9 @@ class SortOrderButtonGroup extends Component {
   }
   render() {
     const { onSort, sortDirection } = this.props;
-    const message = [
-      "Sorteeri laskuvalt",
-      "Sorteeri lisamise järjekorras",
-      "Sorteeri tõusvalt"
-    ];
     return (
       <div className="btn-group btn-group-toggle m-2" data-toggle="buttons">
-        <Tooltip TransitionComponent={Zoom} title={message[0]}>
+        <Tooltip TransitionComponent={Zoom} title={"Sorteeri laskuvalt"}>
           <button
             className={
               "btn btn-lg btn-" +
@@ -32,7 +27,10 @@ class SortOrderButtonGroup extends Component {
             <Octicon name="chevron-up" />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title={message[1]}>
+        <Tooltip
+          TransitionComponent={Zoom}
+          title={"Sorteeri lisamise järjekorras"}
+        >
           <button
             className={
               "btn btn-lg btn-" +
@@ -44,7 +42,7 @@ class SortOrderButtonGroup extends Component {
             <Octicon name="pencil" />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title={message[2]}>
+        <Tooltip TransitionComponent={Zoom} title={"Sorteeri tõusvalt"}>
           <button
             className={
               "btn btn-lg btn-" +

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import TimerList from "./components/timerlist";
-import NavBar from "./components/navbar";
 import Footer from "./components/footer";
-import "./App.css";
+import NavBar from "./components/navbar";
+import TimerList from "./components/timerlist";
 import "bootstrap/dist/css/bootstrap.css";
+import "./App.css";
 
 window.googleDocCallback = function() {
   return true;
@@ -374,7 +374,6 @@ class App extends Component {
   render() {
     document.body.style.backgroundColor = "#fff6f3";
 
-    const message = ["Sündmused", "Eelseisvad ja möödunud sündmused"];
     return (
       <React.Fragment>
         <NavBar
@@ -391,8 +390,8 @@ class App extends Component {
         <main>
           <div className="jumbotron jumbotron-fluid">
             <div className="container">
-              <h1 className="display-1">{message[0]}</h1>
-              <p className="lead">{message[1]}</p>
+              <h1 className="display-1">{"Sündmused"}</h1>
+              <p className="lead">{"Eelseisvad ja möödunud sündmused"}</p>
             </div>
           </div>
           <TimerList

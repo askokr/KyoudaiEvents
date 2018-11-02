@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Popup from "reactjs-popup";
 import GoogleLogin from "react-google-login";
-import Tooltip from "@material-ui/core/Tooltip";
-import Zoom from "@material-ui/core/Zoom";
 import Octicon from "react-octicon";
+import Popup from "reactjs-popup";
+import Zoom from "@material-ui/core/Zoom";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class SaveMenu extends Component {
   shouldComponentUpdate(nextProps) {
@@ -38,14 +38,14 @@ class SaveMenu extends Component {
           <div className="popupbox">
             <p>
               <strong>
-                Salvestamiseks pead sa sisse logima vastava õigusega Google
-                konto kaudu.
+                Salvestamiseks pead sisse logima vastava õigusega Google konto
+                kaudu.
               </strong>
             </p>
             <p>
-              Sisse logides annad sa rakendusele õiguse vaadata enda
-              kasutajakonto üldisi andmeid ja lubad muuta oma Google Draivis
-              olevaid Google arvutustabeleid.
+              Sisse logides annad rakendusele õiguse vaadata enda kasutajakonto
+              üldisi andmeid ja lubad muuta oma Google Draivis olevaid Google
+              arvutustabeleid.
             </p>
             <p>Rakendus talletab sinu isiklike andmeid vaid sessiooni ajaks.</p>
             {responseMessage === "" ? (

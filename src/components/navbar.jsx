@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Clock from "./NavBarElements/clock";
-import SaveLoadButtonGruop from "./NavBarElements/saveLoadButtonGroup";
-import SortOrderButtonGroup from "./NavBarElements/sortOrderButtonGroup";
 import ElementsToDisplayButtonGroup from "./NavBarElements/elementsToDisplayButtonGroup";
+import LoadButtonGruop from "./NavBarElements/loadButtonGroup";
 import SaveMenu from "./NavBarElements/popup";
+import SortOrderButtonGroup from "./NavBarElements/sortOrderButtonGroup";
 
 class NavBar extends Component {
   shouldComponentUpdate(nextProps) {
@@ -37,7 +37,7 @@ class NavBar extends Component {
               onGoogleResponse={onGoogleResponse}
               responseMessage={responseMessage}
             />
-            <SaveLoadButtonGruop onSheetRead={onSheetRead} />
+            <LoadButtonGruop onSheetRead={onSheetRead} />
             <SortOrderButtonGroup
               onSort={onSort}
               sortDirection={sortDirection}

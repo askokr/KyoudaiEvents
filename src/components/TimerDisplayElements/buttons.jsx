@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import Octicon from "react-octicon";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
-import Octicon from "react-octicon";
 
 class Buttons extends Component {
   shouldComponentUpdate() {
@@ -9,15 +9,13 @@ class Buttons extends Component {
   }
   render() {
     const { eventId, onDelete, onEdit } = this.props;
-    const message = [
-      "Kustuta sündmus",
-      "Muuda sündmust",
-      "Praegune lemmik",
-      "Määra lemmikusks"
-    ];
     return (
       <div className="text-container-button d-flex flex-column">
-        <Tooltip TransitionComponent={Zoom} placement="left" title={message[0]}>
+        <Tooltip
+          TransitionComponent={Zoom}
+          placement="left"
+          title={"Kustuta sündmus"}
+        >
           <button
             className="btn btn-danger btn-lg"
             onClick={() => onDelete(eventId)}
@@ -25,7 +23,11 @@ class Buttons extends Component {
             <Octicon name="trashcan" mega />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} placement="left" title={message[1]}>
+        <Tooltip
+          TransitionComponent={Zoom}
+          placement="left"
+          title={"Muuda sündmust"}
+        >
           <button
             className="btn btn-success btn-lg"
             onClick={() => onEdit(eventId)}

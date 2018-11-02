@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import Octicon from "react-octicon";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
-import Octicon from "react-octicon";
 
 class ElementsToDisplayButtonGroup extends Component {
   shouldComponentUpdate(nextProps) {
@@ -13,14 +13,12 @@ class ElementsToDisplayButtonGroup extends Component {
   }
   render() {
     const { onDisplay, whatEvetsToDisplay } = this.props;
-    const message = [
-      "Kuva vaid möödunud sündmused",
-      "Kuva kõik spndmused",
-      "Kuva eelseisvad sündmused"
-    ];
     return (
       <div className="btn-group btn-group-toggle m-2" data-toggle="buttons">
-        <Tooltip TransitionComponent={Zoom} title={message[0]}>
+        <Tooltip
+          TransitionComponent={Zoom}
+          title={"Kuva vaid möödunud sündmused"}
+        >
           <button
             className={
               "btn btn-lg btn-" +
@@ -32,7 +30,7 @@ class ElementsToDisplayButtonGroup extends Component {
             <Octicon name="chevron-left" />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title={message[1]}>
+        <Tooltip TransitionComponent={Zoom} title={"Kuva kõik sündmused"}>
           <button
             className={
               "btn btn-lg btn-" +
@@ -44,7 +42,7 @@ class ElementsToDisplayButtonGroup extends Component {
             <Octicon name="code" />
           </button>
         </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title={message[2]}>
+        <Tooltip TransitionComponent={Zoom} title={"Kuva eelseisvad sündmused"}>
           <button
             className={
               "btn btn-lg btn-" +

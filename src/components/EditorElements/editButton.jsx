@@ -11,25 +11,27 @@ class EditButton extends Component {
   }
   editButton = () => {
     const { onFormSubmit, whatEventAreYouEditing } = this.props;
-    const message = [
-      "LIsa uus sündmus",
-      "Kinnita muutused",
-      "Lisa sündmus",
-      "Kinnita muutused"
-    ];
     if (whatEventAreYouEditing === null) {
       return (
-        <Tooltip TransitionComponent={Zoom} placement="top" title={message[2]}>
+        <Tooltip
+          TransitionComponent={Zoom}
+          placement="top"
+          title={"Lisa sündmus"}
+        >
           <button onClick={onFormSubmit} className="btn btn-warning m-4 btn-lg">
-            {message[0]}
+            {"Lisa sündmus"}
           </button>
         </Tooltip>
       );
     } else {
       return (
-        <Tooltip TransitionComponent={Zoom} placement="top" title={message[3]}>
+        <Tooltip
+          TransitionComponent={Zoom}
+          placement="top"
+          title={"Kinnita muutused"}
+        >
           <button onClick={onFormSubmit} className="btn btn-warning m-4 btn-lg">
-            {message[1]}
+            {"Kinnita muutused"}
           </button>
         </Tooltip>
       );

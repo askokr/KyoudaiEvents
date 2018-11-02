@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import Form from "./EditorElements/form";
 import CloseButton from "./EditorElements/colseButton";
 import EditButton from "./EditorElements/editButton";
+import Form from "./EditorElements/form";
 import ImageBox from "./EditorElements/imageBox";
 import "./stylesheets/react-datetime.css";
 
 class Editor extends Component {
   render() {
-    const { eventDate, eventName, imageUrl } = this.props.editableEvent;
     const {
+      editableEvent,
       oldImageUrl,
       onEventDate,
       onEventName,
@@ -18,6 +18,7 @@ class Editor extends Component {
       onRandomImage,
       whatEventAreYouEditing
     } = this.props;
+    const { eventDate, eventName, imageUrl } = editableEvent;
 
     return (
       <div className="container editor-container text-center m-4">

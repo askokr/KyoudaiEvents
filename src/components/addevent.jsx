@@ -1,25 +1,36 @@
 import React, { Component } from "react";
-import Editor from "./editor";
 import Tooltip from "@material-ui/core/Tooltip";
 import Zoom from "@material-ui/core/Zoom";
-const message = ["Lisa uus sündmus", "Lisa sündmus"];
+import Editor from "./editor";
 
 class AddEvent extends Component {
   render() {
+    const {
+      areYouAddingAnEvent,
+      editableEvent,
+      oldImageUrl,
+      onEventDate,
+      onEventName,
+      onFormSubmit,
+      onImageUrl,
+      onRandomImage,
+      onToggle,
+      whatEventAreYouEditing
+    } = this.props;
     return (
       <React.Fragment>
-        {this.props.areYouAddingAnEvent ? (
+        {areYouAddingAnEvent ? (
           <Editor
-            areYouAddingAnEvent={this.props.areYouAddingAnEvent}
-            editableEvent={this.props.editableEvent}
-            oldImageUrl={this.props.oldImageUrl}
-            onEventDate={this.props.onEventDate}
-            onEventName={this.props.onEventName}
-            onImageUrl={this.props.onImageUrl}
-            onFormSubmit={this.props.onFormSubmit}
-            onToggle={this.props.onToggle}
-            onRandomImage={this.props.onRandomImage}
-            whatEventAreYouEditing={this.props.whatEventAreYouEditing}
+            areYouAddingAnEvent={areYouAddingAnEvent}
+            editableEvent={editableEvent}
+            oldImageUrl={oldImageUrl}
+            onEventDate={onEventDate}
+            onEventName={onEventName}
+            onImageUrl={onImageUrl}
+            onFormSubmit={onFormSubmit}
+            onToggle={onToggle}
+            onRandomImage={onRandomImage}
+            whatEventAreYouEditing={whatEventAreYouEditing}
           />
         ) : (
           <React.Fragment>{this.dafaultView()}</React.Fragment>
@@ -31,12 +42,16 @@ class AddEvent extends Component {
   dafaultView() {
     return (
       <div className="container timer-container text-center m-4">
-        <Tooltip TransitionComponent={Zoom} placement="top" title={message[0]}>
+        <Tooltip
+          TransitionComponent={Zoom}
+          placement="top"
+          title={"Lisa uus sündmus"}
+        >
           <button
             className="container text-cente btn btn-warning shadowy"
             onClick={() => this.props.onToggle("editor")}
           >
-            <h2>{message[1]}</h2>
+            <h2>{"Lisa sündmus"}</h2>
           </button>
         </Tooltip>
       </div>

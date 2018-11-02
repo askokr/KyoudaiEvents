@@ -1,6 +1,6 @@
-import Months from "./months";
-import Days from "./days";
 import AddZero from "./addZero";
+import Days from "./days";
+import Months from "./months";
 
 function datetimeStringFunction(eventDate) {
   const rawDate = new Date(eventDate);

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-const message = ["Pildi eelvaade", "Praegune pilt", "Uus pilt"];
-
 class ImageBox extends Component {
   shouldComponentUpdate(nextProps) {
     if (
@@ -33,7 +31,7 @@ class ImageBox extends Component {
     };
     return (
       <div className="p-2 bd-highlight">
-        <span className="text-above-image">{message[0]}</span>
+        <span className="text-above-image">{"Pildi eelvaade"}</span>
         <div style={newImage} className="background-image shadowy" />
       </div>
     );
@@ -54,12 +52,12 @@ class ImageBox extends Component {
     return (
       <React.Fragment>
         <div className="p-2 bd-highlight">
-          <span className="text-above-image">{message[1]}</span>
+          <span className="text-above-image">{"Praegune pilt"}</span>
           <div style={oldImage} className="background-image shadowy" />
         </div>
         {this.props.oldImageUrl !== this.props.newImageUrl ? (
           <div className="p-2 bd-highlight">
-            <span className="text-above-image">{message[2]}</span>
+            <span className="text-above-image">{"Uus pilt"}</span>
             <div style={newImage} className="background-image shadowy" />
           </div>
         ) : (
